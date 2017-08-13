@@ -22,19 +22,21 @@ end
 Packnga::ReleaseTask.new(spec) do
 end
 
-desc "Configure"
-task :configure => "ext/extpp/Makefile" do
+def run_extconf(*arguments)
   cd("ext/extpp") do
-    ruby("extconf.rb")
+    ruby("extconf.rb", *arguments)
   end
+end
+
+desc "Configure"
+task :configure do
+  run_extconf
 end
 
 namespace :configure do
   desc "Configure for debug"
-  task :debug => "ext/extpp/Makefile" do
-    cd("ext/extpp") do
-      ruby("extconf.rb", "--enable-debug-build")
-    end
+  task :debug do
+    run_extconf("--enable-debug-build")
   end
 end
 
