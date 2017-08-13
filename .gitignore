@@ -1,4 +1,4 @@
 *.o
 *.so
-ext/extpp/Makefile
-ext/extpp/mkmf.log
+Makefile
+mkmf.log
