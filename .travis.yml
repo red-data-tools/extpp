@@ -3,4 +3,13 @@ notifications:
     recipients:
       - red-data-tools@ml.commit-email.info
 
-language: ruby
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker build -t red-data-tools/extpp .
+
+script:
+  - docker run red-data-tools/extpp /bin/sh -c "bundle exec rake"
