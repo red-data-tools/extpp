@@ -2,7 +2,7 @@ require "rbconfig"
 require "mkmf"
 
 def gcc?
-  CONFIG["GCC"] == "yes"
+  RbConfig::CONFIG["GCC"] == "yes"
 end
 
 def disable_optimization_build_flag(flags)
