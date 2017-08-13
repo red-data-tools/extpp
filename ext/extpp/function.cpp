@@ -24,7 +24,7 @@ namespace rb {
     return function;
   }
 
-  Function::Function(const std::function<VALUE(VALUE)> &function) :
+  Function::Function(const std::function<VALUE(VALUE, int, VALUE *)> &function) :
     function_(function) {
   }
 
@@ -35,7 +35,7 @@ namespace rb {
     return TypedData_Wrap_Struct(FunctionPP, &FunctionPP_type, this);
   }
 
-  VALUE Function::call(VALUE self) {
-    return function_(self);
+  VALUE Function::call(VALUE self, int argc, VALUE *argv) {
+    return function_(self, argc, argv);
   };
 }
