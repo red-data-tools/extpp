@@ -1,4 +1,8 @@
-require "mkmf"
+require "extpp/compiler"
+
+compiler = Extpp::Compiler.new($CXXFLAGS)
+compiler.check
+$CXXFLAGS = compiler.cxx_flags
 
 include_path = File.expand_path(File.join(__dir__, "..", "include"))
 $INCFLAGS += " -I#{include_path.quote}"

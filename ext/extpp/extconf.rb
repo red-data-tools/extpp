@@ -1,57 +1,9 @@
-require "rbconfig"
-require "mkmf"
-
-def gcc?
-  RbConfig::CONFIG["GCC"] == "yes"
-end
-
-def disable_optimization_build_flag(flags)
-  if gcc?
-    flags.gsub(/(^|\s)-O\d(\s|$)/, '\\1-O0\\2')
-  else
-    flags
-  end
-end
-
-def enable_debug_build_flag(flags)
-  if gcc?
-    flags.gsub(/(^|\s)(?:-g|-g\d|-ggdb\d?)(\s|$)/, '\\1-g3\\2')
-  else
-    flags
-  end
-end
+require_relative "../../lib/extpp/compiler"
 
 cxxflags = RbConfig::CONFIG["CXXFLAGS"]
-
-checking_for(checking_message("--enable-debug-build option")) do
-  enable_debug_build = enable_config("debug-build", false)
-  if enable_debug_build
-    cxxflags = disable_optimization_build_flag(cxxflags)
-    cxxflags = enable_debug_build_flag(cxxflags)
-  end
-  enable_debug_build
-end
-
-if gcc?
-  checking_for(checking_message("g++ version"), "%g%s") do
-    gpp_version = nil
-    std = nil
-    if /\Ag\+\+ .+ (\d\.\d)\.\d$/ =~ `#{RbConfig.expand("$(CXX) --version")}`
-      gpp_version = Float($1)
-      if gpp_version < 5.1
-        std = "gnu++11"
-      elsif gpp_version < 6.1
-        std = "gnu++14"
-      end
-    end
-    if std
-      cxxflags += " -std=#{std}"
-      [gpp_version, " (#{std})"]
-    else
-      [gpp_version, ""]
-    end
-  end
-end
+compiler = Extpp::Compiler.new(cxxflags)
+compiler.check
+cxxflags = compiler.cxx_flags
 
 sources = Dir.chdir(__dir__) do
   Dir.glob("*.cpp").collect do |cpp_source|
