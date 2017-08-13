@@ -11,7 +11,9 @@ lib_dir = base_dir + "lib"
 test_dir = base_dir + "test"
 
 Dir.chdir(ext_dir.to_s) do
-  system("make > /dev/null")
+  if File.exist?("Makefile")
+    system("make > /dev/null") or exit(false)
+  end
 end
 
 $LOAD_PATH.unshift(lib_dir.to_s)
