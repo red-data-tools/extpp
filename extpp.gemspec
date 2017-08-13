@@ -4,7 +4,7 @@ clean_white_space = lambda do |entry|
   entry.gsub(/(\A\n+|\n+\z)/, '') + "\n"
 end
 
-require_relative "extpp/version"
+require_relative "lib/extpp/version"
 
 Gem::Specification.new do |spec|
   spec.name = "extpp"
