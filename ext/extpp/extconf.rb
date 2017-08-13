@@ -7,7 +7,7 @@ end
 
 def disable_optimization_build_flag(flags)
   if gcc?
-    flags.gsub(/(^|\s)?-O\d(\s|$)?/, '\\1-O0\\2')
+    flags.gsub(/(^|\s)-O\d(\s|$)/, '\\1-O0\\2')
   else
     flags
   end
@@ -15,7 +15,7 @@ end
 
 def enable_debug_build_flag(flags)
   if gcc?
-    flags.gsub(/(^|\s)?-g\d?(\s|$)?/, '\\1-g3\\2')
+    flags.gsub(/(^|\s)(?:-g|-g\d|-ggdb\d?)(\s|$)/, '\\1-g3\\2')
   else
     flags
   end
