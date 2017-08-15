@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require "benchmark"
 require_relative "define_method"
 
