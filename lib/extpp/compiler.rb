@@ -33,7 +33,7 @@ module Extpp
       checking_for(checking_message("g++ version"), "%g%s") do
         version = nil
         std = nil
-        if /\Ag\+\+ .+ (\d\.\d)\.\d$/ =~ `#{RbConfig.expand("$(CXX) --version")}`
+        if /\Ag\+\+ .+ (\d\.\d)\.\d/ =~ `#{RbConfig.expand("$(CXX) --version")}`
           version = Float($1)
           if version < 5.1
             std = "gnu++11"
