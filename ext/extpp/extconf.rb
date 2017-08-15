@@ -14,12 +14,18 @@ objects = sources.collect do |source|
   source.gsub(/\.cpp\z/, ".o")
 end
 
-include_dir = File.expand_path(File.join(__dir__, "..", "..", "include"))
-headers = Dir.chdir(__dir__) do
-  Dir.glob("**/*.hpp").collect do |header|
-    File.join(include_dir, header)
+def collect_headers(dir)
+  Dir.chdir(dir) do
+    Dir.glob("**/*.hpp").collect do |header|
+      File.join(dir, header)
+    end
   end
 end
+
+include_dir = File.expand_path(File.join(__dir__, "..", "..", "include"))
+public_headers = collect_headers(include_dir)
+private_headers = collect_headers(__dir__)
+headers = public_headers + private_headers
 
 File.open("Makefile", "w") do |makefile|
   makefile.puts(<<-MAKEFILE)
@@ -64,5 +70,6 @@ $(LIBRARY): $(OBJECTS)
 .cpp.o:
 	$(CXX) $(INCLUDEFLAGS) $(CPPFLAGS) $(CXXFLAGS) -o $@ -c $<
 
+$(OBJECTS): $(HEADERS)
   MAKEFILE
 end
