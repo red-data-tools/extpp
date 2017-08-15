@@ -1,4 +1,5 @@
 #include <ruby.hpp>
+#include "function.hpp"
 
 namespace {
   VALUE call_func(int argc, VALUE *argv, VALUE self) {
@@ -20,8 +21,17 @@ namespace rb {
   }
 
   Class &Class::define_method(const char *name,
+                              std::function<VALUE(VALUE)> body) {
+    auto function = new FunctionNoArgument(body);
+    auto rb_function = function->to_ruby();
+    rb_iv_set(class_, name, rb_function);
+    rb_define_method(class_, name, reinterpret_cast<METHOD_FUNC>(call_func), -1);
+    return (Class &)*this;
+  }
+
+  Class &Class::define_method(const char *name,
                               std::function<VALUE(VALUE, int, VALUE *)> body) {
-    auto function = new Function(body);
+    auto function = new FunctionWithArguments(body);
     auto rb_function = function->to_ruby();
     rb_iv_set(class_, name, rb_function);
     rb_define_method(class_, name, reinterpret_cast<METHOD_FUNC>(call_func), -1);

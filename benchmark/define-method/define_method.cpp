@@ -44,7 +44,7 @@ Init_define_method(void)
           for (int i = 0; i < n; ++i) {
             char method_name[256];
             snprintf(method_name, sizeof(method_name), "method%d", i);
-            klass.define_method(method_name, [](VALUE self, int argc, VALUE *argv) {
+            klass.define_method(method_name, [](VALUE self) {
                 return Qnil;
               });
           }

@@ -1,4 +1,4 @@
-#include <ruby.hpp>
+#include "function.hpp"
 
 namespace {
   VALUE FunctionPP = Qnil;
@@ -24,10 +24,6 @@ namespace rb {
     return function;
   }
 
-  Function::Function(const std::function<VALUE(VALUE, int, VALUE *)> &function) :
-    function_(function) {
-  }
-
   VALUE Function::to_ruby() {
     if (NIL_P(FunctionPP)) {
       FunctionPP = rb_define_class("FunctionPP", rb_cData);
@@ -35,7 +31,21 @@ namespace rb {
     return TypedData_Wrap_Struct(FunctionPP, &FunctionPP_type, this);
   }
 
-  VALUE Function::call(VALUE self, int argc, VALUE *argv) {
+
+  FunctionNoArgument::FunctionNoArgument(const std::function<VALUE(VALUE)> &function) :
+    function_(function) {
+  }
+
+  VALUE FunctionNoArgument::call(VALUE self, int argc, VALUE *argv) {
+    return function_(self);
+  };
+
+
+  FunctionWithArguments::FunctionWithArguments(const std::function<VALUE(VALUE, int argc, VALUE *argv)> &function) :
+    function_(function) {
+  }
+
+  VALUE FunctionWithArguments::call(VALUE self, int argc, VALUE *argv) {
     return function_(self, argc, argv);
   };
 }
