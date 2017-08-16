@@ -5,6 +5,7 @@ RB_BEGIN_DECLS
 static VALUE
 rb_method(VALUE self)
 {
+  return Qnil;
 }
 
 static VALUE
@@ -63,6 +64,19 @@ Init_define_method(void)
             klass.define_method(method_name, [](VALUE self) {
                 return Qnil;
               });
+          }
+          return Qnil;
+        }).
+      define_method("define_raw", [](VALUE self, int argc, VALUE *argv) {
+          VALUE rb_n;
+          VALUE rb_klass;
+          rb_scan_args(argc, argv, "2", &rb_n, &rb_klass);
+          auto n = NUM2INT(rb_n);
+          rb::Class klass(rb_klass);
+          for (int i = 0; i < n; ++i) {
+            char method_name[256];
+            snprintf(method_name, sizeof(method_name), "method%d", i);
+            klass.define_method_raw(method_name, rb_method);
           }
           return Qnil;
         });

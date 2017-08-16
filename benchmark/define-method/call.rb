@@ -24,6 +24,10 @@ class CppLazyMethods
   DefineMethodCPP.new.define_lazy(N, self)
 end
 
+class CppRawMethods
+  DefineMethodCPP.new.define_raw(N, self)
+end
+
 Benchmark.bmbm do |job|
   ruby_object = RubyMethods.new
   job.report("Ruby") do
@@ -50,6 +54,13 @@ Benchmark.bmbm do |job|
   job.report("C++ (lazy)") do
     N.times do |i|
       cpp_lazy_object.__send__("method#{i}")
+    end
+  end
+
+  cpp_raw_object = CppRawMethods.new
+  job.report("C++ (raw)") do
+    N.times do |i|
+      cpp_raw_object.__send__("method#{i}")
     end
   end
 end

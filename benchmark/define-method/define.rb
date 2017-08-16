@@ -25,4 +25,8 @@ Benchmark.bmbm do |job|
   job.report("C++ (lazy)") do
     DefineMethodCPP.new.define_lazy(n, Class.new)
   end
+
+  job.report("C++ (raw)") do
+    DefineMethodCPP.new.define_raw(n, Class.new)
+  end
 end

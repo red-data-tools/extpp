@@ -12,6 +12,8 @@ namespace rb {
     Class(VALUE klass);
     ~Class();
 
+    Class &define_method_raw(const char *name,
+                             VALUE (*body)(VALUE self));
     Class &define_method(const char *name,
                          std::function<VALUE(VALUE)> body);
     Class &define_method(const char *name,

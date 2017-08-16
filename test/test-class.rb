@@ -19,4 +19,8 @@ class ClassTest < Test::Unit::TestCase
   def test_define_method_lazy
     assert_equal("Hello", Greeting.new.hello_lazy)
   end
+
+  def test_define_method_raw
+    assert_equal("Hello", Greeting.new.hello_raw)
+  end
 end
