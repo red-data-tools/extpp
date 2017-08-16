@@ -132,6 +132,14 @@ namespace rb {
                        0);
     }
 
+    void define_method(const char *name,
+                       VALUE (*body)(int argc, VALUE *argv, VALUE self)) {
+      rb_define_method(class_,
+                       name,
+                       reinterpret_cast<MethodFunc>(body),
+                       -1);
+    }
+
     void define_method(const char *name, Function *function) {
       (*method_table_)[name] = function;
       if (!lazy_define_method_) {
@@ -162,6 +170,12 @@ namespace rb {
 
   Class &Class::define_method_raw(const char *name,
                                   VALUE (*body)(VALUE self)) {
+    impl_->define_method(name, body);
+    return (Class &)*this;
+  }
+
+  Class &Class::define_method_raw(const char *name,
+                                  VALUE (*body)(int argc, VALUE *argv, VALUE self)) {
     impl_->define_method(name, body);
     return (Class &)*this;
   }
