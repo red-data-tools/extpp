@@ -5,12 +5,9 @@
 namespace rb {
   class Function {
   public:
-    static Function *from_ruby(VALUE rb_function);
-
     Function() = default;
     virtual ~Function() = default;
 
-    VALUE to_ruby();
     virtual VALUE call(VALUE self, int argc, VALUE *argv) = 0;
   };
 
