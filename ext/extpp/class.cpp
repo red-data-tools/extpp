@@ -57,11 +57,12 @@ namespace {
     auto rb_method_table = rb_ivar_get(klass, rb_intern("__method_table__"));
     auto method_table = method_table_from_ruby(rb_method_table);
 
-    VALUE rb_method_name;
+    VALUE rb_name_symbol;
     VALUE rb_args;
-    rb_scan_args(argc, argv, "1*", &rb_method_name, &rb_args);
-    std::string function_name(RSTRING_PTR(rb_method_name),
-                              RSTRING_LEN(rb_method_name));
+    rb_scan_args(argc, argv, "1*", &rb_name_symbol, &rb_args);
+    auto rb_name = rb_sym2str(rb_name_symbol);
+    std::string function_name(RSTRING_PTR(rb_name),
+                              RSTRING_LEN(rb_name));
     auto function = (*method_table)[function_name];
     if (function) {
       rb_define_method(klass,
