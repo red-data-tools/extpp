@@ -26,7 +26,7 @@ class ClassTest < Test::Unit::TestCase
     end
   end
 
-b  sub_test_case("with arguments") do
+  sub_test_case("with arguments") do
     def test_define_method
       assert_equal("Hello Ruby", NamedGreeting.new.hello("Ruby"))
     end
