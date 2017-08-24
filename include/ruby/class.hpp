@@ -5,8 +5,8 @@
 #include <functional>
 
 namespace rb {
-  using MethodWithoutArgumentsRaw = VALUE (VALUE self);
-  using MethodWithArgumentsRaw = VALUE (int argc, VALUE *argv, VALUE self);
+  using MethodWithoutArgumentsRaw = VALUE (*)(VALUE self);
+  using MethodWithArgumentsRaw = VALUE (*)(int argc, VALUE *argv, VALUE self);
   using MethodWithoutArguments = std::function<VALUE (VALUE self)>;
   using MethodWithArguments =
     std::function<VALUE (VALUE self, int argc, VALUE *argv)>;
@@ -20,9 +20,9 @@ namespace rb {
     ~Class();
 
     Class &define_method_raw(const char *name,
-                             MethodWithoutArgumentsRaw *body);
+                             MethodWithoutArgumentsRaw body);
     Class &define_method_raw(const char *name,
-                             MethodWithArgumentsRaw *body);
+                             MethodWithArgumentsRaw body);
     Class &define_method(const char *name,
                          MethodWithoutArguments body);
     Class &define_method(const char *name,

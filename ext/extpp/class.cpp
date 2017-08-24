@@ -169,13 +169,13 @@ namespace rb {
   }
 
   Class &Class::define_method_raw(const char *name,
-                                  MethodWithoutArgumentsRaw *body) {
+                                  MethodWithoutArgumentsRaw body) {
     impl_->define_method(name, body);
     return (Class &)*this;
   }
 
   Class &Class::define_method_raw(const char *name,
-                                  MethodWithArgumentsRaw *body) {
+                                  MethodWithArgumentsRaw body) {
     impl_->define_method(name, body);
     return (Class &)*this;
   }
