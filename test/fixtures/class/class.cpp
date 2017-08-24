@@ -31,6 +31,11 @@ Init_class(void)
         rb_scan_args(argc, argv, "10", &rb_name);
         return rb_str_plus(rb_str_new_cstr("Hello "), rb_name);
       }).
+    define_method("hello_compatible", [](int argc, VALUE *argv, VALUE self) {
+        VALUE rb_name;
+        rb_scan_args(argc, argv, "10", &rb_name);
+        return rb_str_plus(rb_str_new_cstr("Hello "), rb_name);
+      }).
     enable_lazy_define_method().
     define_method("hello_lazy", [](VALUE self, int argc, VALUE *argv) {
         VALUE rb_name;

@@ -3,6 +3,7 @@ class ClassTest < Test::Unit::TestCase
 
   class << self
     def startup
+      return unless self == ClassTest
       lib_dir = File.join(__dir__, "..", "lib")
       Dir.chdir(fixture_path("class")) do
         system(RbConfig.ruby, "-w", "-I", lib_dir, "extconf.rb")
@@ -29,6 +30,10 @@ class ClassTest < Test::Unit::TestCase
   sub_test_case("with arguments") do
     def test_define_method
       assert_equal("Hello Ruby", NamedGreeting.new.hello("Ruby"))
+    end
+
+    def test_define_method_compatible
+      assert_equal("Hello Ruby", NamedGreeting.new.hello_compatible("Ruby"))
     end
 
     def test_define_method_lazy
