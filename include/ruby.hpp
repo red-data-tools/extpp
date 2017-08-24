@@ -6,3 +6,4 @@
 #define RB_END_DECLS }
 
 #include <ruby/class.hpp>
+#include <ruby/convert.hpp>
