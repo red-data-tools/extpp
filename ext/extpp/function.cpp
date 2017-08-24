@@ -1,7 +1,7 @@
 #include "function.hpp"
 
 namespace rb {
-  FunctionNoArgument::FunctionNoArgument(const std::function<VALUE(VALUE)> &function) :
+  FunctionNoArgument::FunctionNoArgument(const MethodWithoutArguments &function) :
     function_(function) {
   }
 
@@ -10,11 +10,19 @@ namespace rb {
   };
 
 
-  FunctionWithArguments::FunctionWithArguments(const std::function<VALUE(VALUE, int argc, VALUE *argv)> &function) :
+  FunctionWithArguments::FunctionWithArguments(const MethodWithArguments &function) :
     function_(function) {
   }
 
   VALUE FunctionWithArguments::call(VALUE self, int argc, VALUE *argv) {
     return function_(self, argc, argv);
+  };
+
+  FunctionWithArgumentsCompatible::FunctionWithArgumentsCompatible(const MethodWithArgumentsCompatible &function) :
+    function_(function) {
+  }
+
+  VALUE FunctionWithArgumentsCompatible::call(VALUE self, int argc, VALUE *argv) {
+    return function_(argc, argv, self);
   };
 }

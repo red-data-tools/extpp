@@ -1,3 +1,5 @@
+#pragma once
+
 #include <ruby.h>
 
 #define RB_BEGIN_DECLS extern "C" {

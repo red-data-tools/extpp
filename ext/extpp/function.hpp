@@ -1,6 +1,6 @@
-#include <ruby.h>
+#pragma once
 
-#include <functional>
+#include <ruby.hpp>
 
 namespace rb {
   class Function {
@@ -13,21 +13,31 @@ namespace rb {
 
   class FunctionNoArgument : public Function {
   public:
-    FunctionNoArgument(const std::function<VALUE(VALUE self)> &function);
+    FunctionNoArgument(const MethodWithoutArguments &function);
 
     VALUE call(VALUE self, int argc, VALUE *argv) override;
 
   private:
-    std::function<VALUE(VALUE self)> function_;
+    MethodWithoutArguments function_;
   };
 
   class FunctionWithArguments : public Function {
   public:
-    FunctionWithArguments(const std::function<VALUE(VALUE self, int argc, VALUE *argv)> &function);
+    FunctionWithArguments(const MethodWithArguments &function);
 
     VALUE call(VALUE self, int argc, VALUE *argv) override;
 
   private:
-    std::function<VALUE(VALUE self, int argc, VALUE *argv)> function_;
+    MethodWithArguments function_;
+  };
+
+  class FunctionWithArgumentsCompatible : public Function {
+  public:
+    FunctionWithArgumentsCompatible(const MethodWithArgumentsCompatible &function);
+
+    VALUE call(VALUE self, int argc, VALUE *argv) override;
+
+  private:
+    MethodWithArgumentsCompatible function_;
   };
 }

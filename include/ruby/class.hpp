@@ -1,8 +1,18 @@
+#pragma once
+
 #include <ruby.h>
 
 #include <functional>
 
 namespace rb {
+  using MethodWithoutArgumentsRaw = VALUE (VALUE self);
+  using MethodWithArgumentsRaw = VALUE (int argc, VALUE *argv, VALUE self);
+  using MethodWithoutArguments = std::function<VALUE (VALUE self)>;
+  using MethodWithArguments =
+    std::function<VALUE (VALUE self, int argc, VALUE *argv)>;
+  using MethodWithArgumentsCompatible =
+    std::function<VALUE (int argc, VALUE *argv, VALUE self)>;
+
   class Class {
   public:
     Class(const char *name, VALUE parent);
@@ -10,13 +20,15 @@ namespace rb {
     ~Class();
 
     Class &define_method_raw(const char *name,
-                             VALUE (*body)(VALUE self));
+                             MethodWithoutArgumentsRaw *body);
     Class &define_method_raw(const char *name,
-                             VALUE (*body)(int argc, VALUE *argv, VALUE self));
+                             MethodWithArgumentsRaw *body);
     Class &define_method(const char *name,
-                         std::function<VALUE(VALUE)> body);
+                         MethodWithoutArguments body);
     Class &define_method(const char *name,
-                         std::function<VALUE(VALUE, int, VALUE *)> body);
+                         MethodWithArguments body);
+    Class &define_method(const char *name,
+                         MethodWithArgumentsCompatible body);
 
     Class &enable_lazy_define_method();
 

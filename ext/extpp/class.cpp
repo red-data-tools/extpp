@@ -169,27 +169,32 @@ namespace rb {
   }
 
   Class &Class::define_method_raw(const char *name,
-                                  VALUE (*body)(VALUE self)) {
+                                  MethodWithoutArgumentsRaw *body) {
     impl_->define_method(name, body);
     return (Class &)*this;
   }
 
   Class &Class::define_method_raw(const char *name,
-                                  VALUE (*body)(int argc, VALUE *argv, VALUE self)) {
+                                  MethodWithArgumentsRaw *body) {
     impl_->define_method(name, body);
     return (Class &)*this;
   }
 
-  Class &Class::define_method(const char *name,
-                              std::function<VALUE(VALUE)> body) {
+  Class &Class::define_method(const char *name, MethodWithoutArguments body) {
     auto function = new FunctionNoArgument(body);
     impl_->define_method(name, function);
     return (Class &)*this;
   }
 
-  Class &Class::define_method(const char *name,
-                              std::function<VALUE(VALUE, int, VALUE *)> body) {
+  Class &Class::define_method(const char *name, MethodWithArguments body) {
     auto function = new FunctionWithArguments(body);
+    impl_->define_method(name, function);
+    return (Class &)*this;
+  }
+
+  Class &Class::define_method(const char *name,
+                              MethodWithArgumentsCompatible body) {
+    auto function = new FunctionWithArgumentsCompatible(body);
     impl_->define_method(name, function);
     return (Class &)*this;
   }
