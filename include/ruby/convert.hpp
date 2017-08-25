@@ -4,23 +4,28 @@
 
 namespace rb {
   template <typename RETURN_TYPE>
-  RETURN_TYPE from_ruby(VALUE &rb_object);
+  inline RETURN_TYPE from_ruby(VALUE rb_object);
 
   template <>
-  int from_ruby(VALUE &rb_object) {
+  inline int from_ruby<int>(VALUE rb_object) {
     return NUM2INT(rb_object);
   }
 
   template <>
-  uint64_t from_ruby(VALUE &rb_object) {
+  inline uint64_t from_ruby<uint64_t>(VALUE rb_object) {
     return NUM2ULONG(rb_object);
   }
 
   template <typename ARGUMENT_TYPE>
-  VALUE to_ruby(ARGUMENT_TYPE &object);
+  inline VALUE to_ruby(ARGUMENT_TYPE n);
 
   template <>
-  VALUE to_ruby(uint64_t &n) {
+  inline VALUE to_ruby<int>(int n) {
+    return INT2NUM(n);
+  }
+
+  template <>
+  inline VALUE to_ruby<uint64_t>(uint64_t n) {
     return ULONG2NUM(n);
   }
 }
