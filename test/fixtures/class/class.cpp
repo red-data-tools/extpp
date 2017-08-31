@@ -23,7 +23,7 @@ Init_class(void)
     define_method("hello_lazy", [](VALUE self) {
         return rb_str_new_cstr("Hello");
       }).
-    define_method_raw("hello_raw", rb_hello);
+    define_method("hello_defined", rb_hello);
 
   rb::Class("NamedGreeting", rb_cObject).
     define_method("hello", [](VALUE self, int argc, VALUE *argv) {
@@ -42,5 +42,5 @@ Init_class(void)
         rb_scan_args(argc, argv, "10", &rb_name);
         return rb_str_plus(rb_str_new_cstr("Hello "), rb_name);
       }).
-    define_method_raw("hello_raw", rb_named_hello);
+    define_method("hello_defined", rb_named_hello);
 }

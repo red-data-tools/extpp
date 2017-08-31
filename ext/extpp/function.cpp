@@ -1,11 +1,11 @@
 #include "function.hpp"
 
 namespace rb {
-  FunctionNoArgument::FunctionNoArgument(const MethodWithoutArguments &function) :
+  FunctionWithoutArgument::FunctionWithoutArgument(const MethodWithoutArguments &function) :
     function_(function) {
   }
 
-  VALUE FunctionNoArgument::call(VALUE self, int argc, VALUE *argv) {
+  VALUE FunctionWithoutArgument::call(VALUE self, int argc, VALUE *argv) {
     return function_(self);
   };
 

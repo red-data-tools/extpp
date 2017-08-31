@@ -24,8 +24,8 @@ class CppLazyMethods
   DefineMethodCPP.new.define_lazy(N, self)
 end
 
-class CppRawMethods
-  DefineMethodCPP.new.define_raw(N, self)
+class CppDefinedMethods
+  DefineMethodCPP.new.define_defined(N, self)
 end
 
 Benchmark.bmbm do |job|
@@ -57,8 +57,8 @@ Benchmark.bmbm do |job|
     end
   end
 
-  cpp_raw_object = CppRawMethods.new
-  job.report("C++ (raw)") do
+  cpp_defined_object = CppDefinedMethods.new
+  job.report("C++ (defined)") do
     N.times do |i|
       cpp_raw_object.__send__("method#{i}")
     end

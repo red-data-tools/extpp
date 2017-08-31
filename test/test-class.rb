@@ -22,8 +22,8 @@ class ClassTest < Test::Unit::TestCase
       assert_equal("Hello", Greeting.new.hello_lazy)
     end
 
-    def test_define_method_raw
-      assert_equal("Hello", Greeting.new.hello_raw)
+    def test_define_method_defined
+      assert_equal("Hello", Greeting.new.hello_defined)
     end
   end
 
@@ -40,8 +40,8 @@ class ClassTest < Test::Unit::TestCase
       assert_equal("Hello Ruby", NamedGreeting.new.hello_lazy("Ruby"))
     end
 
-    def test_define_method_raw
-      assert_equal("Hello Ruby", NamedGreeting.new.hello_raw("Ruby"))
+    def test_define_method_defined
+      assert_equal("Hello Ruby", NamedGreeting.new.hello_defined("Ruby"))
     end
   end
 end

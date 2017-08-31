@@ -168,25 +168,15 @@ namespace rb {
     delete impl_;
   }
 
-  Class &Class::define_method_raw(const char *name,
-                                  MethodWithoutArgumentsRaw body) {
-    impl_->define_method(name, body);
-    return (Class &)*this;
-  }
-
-  Class &Class::define_method_raw(const char *name,
-                                  MethodWithArgumentsRaw body) {
-    impl_->define_method(name, body);
-    return (Class &)*this;
-  }
-
-  Class &Class::define_method(const char *name, MethodWithoutArguments body) {
-    auto function = new FunctionNoArgument(body);
+  Class &Class::define_method(const char *name,
+                              MethodWithoutArguments body) {
+    auto function = new FunctionWithoutArgument(body);
     impl_->define_method(name, function);
     return (Class &)*this;
   }
 
-  Class &Class::define_method(const char *name, MethodWithArguments body) {
+  Class &Class::define_method(const char *name,
+                              MethodWithArguments body) {
     auto function = new FunctionWithArguments(body);
     impl_->define_method(name, function);
     return (Class &)*this;

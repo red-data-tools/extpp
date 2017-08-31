@@ -11,9 +11,9 @@ namespace rb {
     virtual VALUE call(VALUE self, int argc, VALUE *argv) = 0;
   };
 
-  class FunctionNoArgument : public Function {
+  class FunctionWithoutArgument : public Function {
   public:
-    FunctionNoArgument(const MethodWithoutArguments &function);
+    FunctionWithoutArgument(const MethodWithoutArguments &function);
 
     VALUE call(VALUE self, int argc, VALUE *argv) override;
 
