@@ -10,7 +10,7 @@ namespace rb {
 
   class Class {
   public:
-    Class(const char *name, VALUE parent);
+    Class(const char *name, VALUE parent=rb_cObject);
     Class(VALUE klass);
     ~Class();
 

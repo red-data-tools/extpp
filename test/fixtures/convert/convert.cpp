@@ -3,7 +3,7 @@
 extern "C" void
 Init_convert(void)
 {
-  rb::Class("Converter", rb_cObject).
+  rb::Class("Converter").
     define_method("convert_number", [](VALUE self, int argc, VALUE *argv) {
         VALUE rb_n;
         rb_scan_args(argc, argv, "1", &rb_n);

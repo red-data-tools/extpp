@@ -15,7 +15,7 @@ namespace {
 extern "C" void
 Init_class(void)
 {
-  rb::Class("Greeting", rb_cObject).
+  rb::Class("Greeting").
     define_method("hello", [](VALUE self) {
         return rb_str_new_cstr("Hello");
       }).
@@ -25,7 +25,7 @@ Init_class(void)
       }).
     define_method("hello_defined", rb_hello);
 
-  rb::Class("NamedGreeting", rb_cObject).
+  rb::Class("NamedGreeting").
     define_method("hello", [](VALUE self, int argc, VALUE *argv) {
         VALUE rb_name;
         rb_scan_args(argc, argv, "10", &rb_name);
