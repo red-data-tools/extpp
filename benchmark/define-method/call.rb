@@ -60,7 +60,7 @@ Benchmark.bmbm do |job|
   cpp_defined_object = CppDefinedMethods.new
   job.report("C++ (defined)") do
     N.times do |i|
-      cpp_raw_object.__send__("method#{i}")
+      cpp_defined_object.__send__("method#{i}")
     end
   end
 end
