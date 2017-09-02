@@ -7,3 +7,4 @@
 
 #include <ruby/class.hpp>
 #include <ruby/convert.hpp>
+#include <ruby/object.hpp>

@@ -157,11 +157,13 @@ namespace rb {
   };
 
   Class::Class(const char *name, VALUE parent) :
-    impl_(new ClassImpl(rb_define_class(name, parent))) {
+    Object(rb_define_class(name, parent)),
+    impl_(new ClassImpl(this->to_ruby())) {
   }
 
   Class::Class(VALUE klass) :
-    impl_(new ClassImpl(klass)) {
+    Object(klass),
+    impl_(new ClassImpl(this->to_ruby())) {
   }
 
   Class::~Class() {
