@@ -1,22 +1,22 @@
-class ConvertTest < Test::Unit::TestCase
+class CastTest < Test::Unit::TestCase
   extend Helper::Fixture
 
   class << self
     def startup
       lib_dir = File.join(__dir__, "..", "lib")
-      Dir.chdir(fixture_path("convert")) do
+      Dir.chdir(fixture_path("cast")) do
         system(RbConfig.ruby, "-w", "-I", lib_dir, "extconf.rb")
         system("make")
       end
-      require fixture_path("convert", "convert")
+      require fixture_path("cast", "cast")
     end
   end
 
   def setup
-    @converter = Converter.new
+    @caster = Caster.new
   end
 
   def test_number
-    assert_equal(29, @converter.convert_number(29))
+    assert_equal(29, @caster.cast_number(29))
   end
 end

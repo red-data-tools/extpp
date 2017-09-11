@@ -5,6 +5,6 @@
 #define RB_BEGIN_DECLS extern "C" {
 #define RB_END_DECLS }
 
+#include <ruby/cast.hpp>
 #include <ruby/class.hpp>
-#include <ruby/convert.hpp>
 #include <ruby/object.hpp>
