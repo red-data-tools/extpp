@@ -128,13 +128,6 @@ namespace {
       rb_scan_args(argc, argv, "1*", &rb_name_symbol, &rb_args);
       auto function = (*method_table)[rb_sym2id(rb_name_symbol)];
       if (function) {
-        auto rb_name = rb_sym2str(rb_name_symbol);
-        std::string function_name(RSTRING_PTR(rb_name),
-                                  RSTRING_LEN(rb_name));
-        rb_define_method(klass,
-                         function_name.c_str(),
-                         reinterpret_cast<rb::MethodFunc>(call_func),
-                         -1);
         return function->call(self, RARRAY_LEN(rb_args), RARRAY_PTR(rb_args));
       }
     }
