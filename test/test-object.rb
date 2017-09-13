@@ -30,4 +30,18 @@ class ObjectTest < Test::Unit::TestCase
   def test_to_ruby
     assert_equal("Hello", ObjectMethods.new.to_ruby("Hello"))
   end
+
+  sub_test_case("send") do
+    def test_no_arguments
+      assert_equal("1", ObjectMethods.new.send_no_arguments(1, "to_s"))
+    end
+
+    def test_two_arguments
+      assert_equal("ell",
+                   ObjectMethods.new.send_two_arguments("hello",
+                                                        "[]",
+                                                        1,
+                                                        3))
+    end
+  end
 end

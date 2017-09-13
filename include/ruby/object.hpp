@@ -51,6 +51,25 @@ namespace rb {
       rb_gc_register_address(&rb_object_);
     }
 
+    template <typename... ARGUMENTS>
+    inline Object send(ID name_id, ARGUMENTS... args) {
+      VALUE rb_result = rb_funcall(rb_object_,
+                                   name_id,
+                                   sizeof...(args),
+                                   args...);
+      return Object(rb_result);
+    }
+
+    template <typename... ARGUMENTS>
+    inline Object send(const char *name, ARGUMENTS... args) {
+      return send(rb_intern(name), args...);
+    }
+
+    template <typename... ARGUMENTS>
+    inline Object send(Object name, ARGUMENTS... args) {
+      return send(rb_intern_str(name), args...);
+    }
+
   private:
     VALUE rb_object_;
     bool is_gc_guarding_;
