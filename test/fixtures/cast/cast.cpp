@@ -8,5 +8,10 @@ Init_cast(void)
         VALUE rb_n;
         rb_scan_args(argc, argv, "1", &rb_n);
         return rb::cast<rb::Object>(rb::cast<int>(rb::Object(rb_n)));
+      }).
+    define_method("cast_string", [](VALUE self, int argc, VALUE *argv) -> VALUE {
+        VALUE rb_string;
+        rb_scan_args(argc, argv, "1", &rb_string);
+        return rb::cast<rb::Object>(rb::cast<const char *>(rb::Object(rb_string)));
       });
 }

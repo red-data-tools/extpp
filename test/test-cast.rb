@@ -19,4 +19,8 @@ class CastTest < Test::Unit::TestCase
   def test_number
     assert_equal(29, @caster.cast_number(29))
   end
+
+  def test_string
+    assert_equal("Hello", @caster.cast_string("Hello"))
+  end
 end
