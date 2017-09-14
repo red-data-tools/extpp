@@ -4,8 +4,6 @@
 #include <vector>
 
 namespace rb {
-  using MethodFunc = VALUE (*)(ANYARGS);
-
   using MethodTable = std::unordered_map<ID, Function *>;
 
   struct MethodDefinition {

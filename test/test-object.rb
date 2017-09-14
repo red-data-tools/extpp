@@ -43,5 +43,10 @@ class ObjectTest < Test::Unit::TestCase
                                                         1,
                                                         3))
     end
+
+    def test_block
+      assert_equal([1, 4, 9],
+                   ObjectMethods.new.send_block([1, 2, 3], "collect"))
+    end
   end
 end

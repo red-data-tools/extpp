@@ -55,7 +55,24 @@ Init_object(void)
                      &rb_arg2);
         rb::Object receiver(rb_receiver);
         rb::Object method_name(rb_method_name);
-        auto result = receiver.send(method_name, rb_arg1, rb_arg2);
+        auto result = receiver.send(method_name, {rb_arg1, rb_arg2});
+        return static_cast<VALUE>(result);
+      }).
+    define_method("send_block", [](int argc, VALUE *argv, VALUE self) {
+        VALUE rb_receiver;
+        VALUE rb_method_name;
+        rb_scan_args(argc, argv, "2",
+                     &rb_receiver,
+                     &rb_method_name);
+        rb::Object receiver(rb_receiver);
+        rb::Object method_name(rb_method_name);
+        auto result = receiver.send(method_name,
+                                    {},
+                                    [](VALUE rb_n) -> VALUE {
+                                      auto n = rb::Object(rb_n);
+                                      auto n_raw = rb::cast<int32_t>(n);
+                                      return rb::cast<rb::Object>(n_raw * n_raw);
+                                    });
         return static_cast<VALUE>(result);
       });
 }

@@ -3,11 +3,6 @@
 #include <ruby/object.hpp>
 
 namespace rb {
-  using MethodWithoutArguments = VALUE (*)(VALUE self);
-  using MethodWithArguments = VALUE (*)(VALUE self, int argc, VALUE *argv);
-  using MethodWithArgumentsCompatible =
-    VALUE (*)(int argc, VALUE *argv, VALUE self);
-
   class Class: public Object {
   public:
     Class(const char *name, VALUE parent=rb_cObject);
