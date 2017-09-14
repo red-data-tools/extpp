@@ -13,13 +13,35 @@ namespace rb {
                           ADDTIONAL_DATA_TYPE1 data1);
 
   template <>
-  inline int cast<int, Object>(Object rb_object) {
+  inline int32_t cast<int32_t, Object>(Object rb_object) {
     return NUM2INT(rb_object);
   }
 
   template <>
-  inline Object cast<Object, int>(int n) {
+  inline Object cast<Object, int32_t>(int32_t n) {
     return INT2NUM(n);
+  }
+
+
+  template <>
+  inline int64_t cast<int64_t, Object>(Object rb_object) {
+    return NUM2LONG(rb_object);
+  }
+
+  template <>
+  inline Object cast<Object, int64_t>(int64_t n) {
+    return LONG2NUM(n);
+  }
+
+
+  template <>
+  inline uint32_t cast<uint32_t, Object>(Object rb_object) {
+    return NUM2UINT(rb_object);
+  }
+
+  template <>
+  inline Object cast<Object, uint32_t>(uint32_t n) {
+    return UINT2NUM(n);
   }
 
 

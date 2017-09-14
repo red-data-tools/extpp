@@ -16,8 +16,24 @@ class CastTest < Test::Unit::TestCase
     @caster = Caster.new
   end
 
-  def test_number
-    assert_equal(29, @caster.cast_number(29))
+  def test_int32
+    assert_equal(-(2 ** 31),
+                 @caster.cast_int32(-(2 ** 31)))
+  end
+
+  def test_int64
+    assert_equal(-(2 ** 63),
+                 @caster.cast_int64(-(2 ** 63)))
+  end
+
+  def test_uint32
+    assert_equal(2 ** 32 - 1,
+                 @caster.cast_uint32(2 ** 32 - 1))
+  end
+
+  def test_uint64
+    assert_equal(2 ** 64 - 1,
+                 @caster.cast_uint64(2 ** 64 - 1))
   end
 
   def test_string
