@@ -7,12 +7,12 @@
 namespace rb {
   class Object {
   public:
-    Object(VALUE rb_object=Qnil) :
+    explicit Object(VALUE rb_object=Qnil) :
       rb_object_(rb_object),
       is_gc_guarding_(false) {
     }
 
-    Object(const char *name) :
+    explicit Object(const char *name) :
       rb_object_(rb_const_get(rb_cObject, rb_intern(name))),
       is_gc_guarding_(false) {
     }

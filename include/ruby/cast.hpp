@@ -14,45 +14,45 @@ namespace rb {
 
   template <>
   inline int32_t cast<int32_t, Object>(Object rb_object) {
-    return NUM2INT(rb_object);
+    return NUM2INT(static_cast<VALUE>(rb_object));
   }
 
   template <>
   inline Object cast<Object, int32_t>(int32_t n) {
-    return INT2NUM(n);
+    return Object(INT2NUM(n));
   }
 
 
   template <>
   inline int64_t cast<int64_t, Object>(Object rb_object) {
-    return NUM2LONG(rb_object);
+    return NUM2LONG(static_cast<VALUE>(rb_object));
   }
 
   template <>
   inline Object cast<Object, int64_t>(int64_t n) {
-    return LONG2NUM(n);
+    return Object(LONG2NUM(n));
   }
 
 
   template <>
   inline uint32_t cast<uint32_t, Object>(Object rb_object) {
-    return NUM2UINT(rb_object);
+    return NUM2UINT(static_cast<VALUE>(rb_object));
   }
 
   template <>
   inline Object cast<Object, uint32_t>(uint32_t n) {
-    return UINT2NUM(n);
+    return Object(UINT2NUM(n));
   }
 
 
   template <>
   inline uint64_t cast<uint64_t, Object>(Object rb_object) {
-    return NUM2ULONG(rb_object);
+    return NUM2ULONG(static_cast<VALUE>(rb_object));
   }
 
   template <>
   inline Object cast<Object, uint64_t>(uint64_t n) {
-    return ULONG2NUM(n);
+    return Object(ULONG2NUM(n));
   }
 
 
@@ -64,11 +64,11 @@ namespace rb {
 
   template <>
   inline Object cast<Object, const char *>(const char *c_string) {
-    return rb_str_new_cstr(c_string);
+    return Object(rb_str_new_cstr(c_string));
   }
 
   template <>
   inline Object cast<Object, const char *, long>(const char *data, long size) {
-    return rb_str_new(data, size);
+    return Object(rb_str_new(data, size));
   }
 }
