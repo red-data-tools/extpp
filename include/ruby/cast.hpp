@@ -14,7 +14,7 @@ namespace rb {
 
   template <>
   inline int32_t cast<int32_t, Object>(Object rb_object) {
-    return NUM2INT(static_cast<VALUE>(rb_object));
+    return NUM2INT(rb_object);
   }
 
   template <>
@@ -25,7 +25,7 @@ namespace rb {
 
   template <>
   inline int64_t cast<int64_t, Object>(Object rb_object) {
-    return NUM2LONG(static_cast<VALUE>(rb_object));
+    return NUM2LONG(rb_object);
   }
 
   template <>
@@ -36,7 +36,7 @@ namespace rb {
 
   template <>
   inline uint32_t cast<uint32_t, Object>(Object rb_object) {
-    return NUM2UINT(static_cast<VALUE>(rb_object));
+    return NUM2UINT(rb_object);
   }
 
   template <>
@@ -47,7 +47,7 @@ namespace rb {
 
   template <>
   inline uint64_t cast<uint64_t, Object>(Object rb_object) {
-    return NUM2ULONG(static_cast<VALUE>(rb_object));
+    return NUM2ULONG(rb_object);
   }
 
   template <>
