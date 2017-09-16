@@ -28,7 +28,7 @@ namespace rb {
       }
     }
 
-    inline operator bool() const {
+    inline explicit operator bool() const {
       return RTEST(rb_object_);
     }
 
