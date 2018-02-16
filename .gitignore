@@ -2,3 +2,4 @@
 *.so
 Makefile
 mkmf.log
+/pkg/
