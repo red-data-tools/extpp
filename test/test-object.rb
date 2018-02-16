@@ -49,4 +49,20 @@ class ObjectTest < Test::Unit::TestCase
                    ObjectMethods.new.send_block([1, 2, 3], "collect"))
     end
   end
+
+  sub_test_case("instance variable") do
+    def test_set
+      object = Object.new
+      methods = ObjectMethods.new
+      assert_equal("me", methods.ivar_set(object, "@name", "me"))
+      assert_equal("me", object.instance_variable_get("@name"))
+    end
+
+    def test_get
+      object = Object.new
+      object.instance_variable_set("@name", "me")
+      methods = ObjectMethods.new
+      assert_equal("me", methods.ivar_get(object, "@name"))
+    end
+  end
 end

@@ -89,6 +89,30 @@ namespace rb {
       return send(rb_intern_str(name), args, block);
     }
 
+    inline Object ivar_set(ID name_id, VALUE value) {
+      return Object(rb_ivar_set(rb_object_, name_id, value));
+    }
+
+    inline Object ivar_set(const char *name, VALUE value) {
+      return ivar_set(rb_intern(name), value);
+    }
+
+    inline Object ivar_set(Object name, VALUE value) {
+      return ivar_set(rb_intern_str(name), value);
+    }
+
+    inline Object ivar_get(ID name_id) {
+      return Object(rb_ivar_get(rb_object_, name_id));
+    }
+
+    inline Object ivar_get(const char *name) {
+      return ivar_get(rb_intern(name));
+    }
+
+    inline Object ivar_get(Object name) {
+      return ivar_get(rb_intern_str(name));
+    }
+
   private:
     VALUE rb_object_;
     bool is_gc_guarding_;
