@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.summary, spec.description, = description.split(/\n\n+/, 3)
   spec.licenses = ["BSD-2-Clause"]
   spec.files = ["README.md", "Rakefile"]
-  spec.files += ["LICENSE"]
+  spec.files += ["LICENSE.txt"]
   spec.files += Dir.glob("lib/**/*.rb")
   spec.files += Dir.glob("ext/**/*.cpp")
   spec.files += Dir.glob("include/**/*.hpp")
