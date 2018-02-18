@@ -31,7 +31,8 @@ headers = public_headers + private_headers
 platform = ExtPP::Platform.new
 case RUBY_PLATFORM
 when /darwin/
-  ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"].gsub(/ -bundle/, "")
+  ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"]
+  ldsharedxx = ldsharedxx.gsub(/ (?-dynamic|bundle)/, "") + " -shared"
 else
   ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"]
 end
