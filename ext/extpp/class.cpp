@@ -127,7 +127,9 @@ namespace {
       rb_scan_args(argc, argv, "1*", &rb_name_symbol, &rb_args);
       auto function = (*method_table)[rb_sym2id(rb_name_symbol)];
       if (function) {
-        return function->call(self, RARRAY_LEN(rb_args), RARRAY_PTR(rb_args));
+        return function->call(self,
+                              static_cast<int>(RARRAY_LEN(rb_args)),
+                              RARRAY_PTR(rb_args));
       }
     }
 
