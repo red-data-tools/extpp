@@ -51,6 +51,10 @@ CXX = #{RbConfig::CONFIG["CXX"].quote}
 RUBY = #{RbConfig.ruby.quote}
 RUBY_HEADER_DIR = #{RbConfig::CONFIG["rubyhdrdir"].quote}
 RUBY_ARCH_HEADER_DIR = #{RbConfig::CONFIG["rubyarchhdrdir"].quote}
+
+sitearchdir = #{RbConfig::CONFIG["sitearchdir"].quote}
+sitelibdir = #{RbConfig::CONFIG["sitelibdir"].quote}
+
 LIBRUBYARG_SHARED = #{RbConfig::CONFIG["LIBRUBYARG_SHARED"]}
 ARCH_FLAG = #{RbConfig::CONFIG["ARCH_FLAG"]}
 LDFLAGS = #{RbConfig::CONFIG["LDFLAGS"]}
@@ -75,8 +79,10 @@ dist-clean:
 	$(MAKE) clean
 	rm -rf Makefile
 
-install: $(LIBRARY)
-	"$(RUBY)" -run -e install -- $(LIBRARY) $(DESTDIR)/tmp/local/lib/
+install: install-so
+
+install-so: $(LIBRARY)
+	"$(RUBY)" -run -e install -- $(LIBRARY) $(sitearchdir)
 
 $(LIBRARY): $(OBJECTS) Makefile
 	$(LDSHAREDXX) \\
