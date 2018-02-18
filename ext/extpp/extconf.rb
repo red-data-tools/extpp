@@ -43,7 +43,10 @@ RUBY = #{RbConfig.ruby.quote}
 RUBY_HEADER_DIR = #{RbConfig::CONFIG["rubyhdrdir"].quote}
 RUBY_ARCH_HEADER_DIR = #{RbConfig::CONFIG["rubyarchhdrdir"].quote}
 LIBRUBYARG_SHARED = #{RbConfig::CONFIG["LIBRUBYARG_SHARED"]}
+ARCH_FLAG = #{RbConfig::CONFIG["ARCH_FLAG"]}
+LDFLAGS = #{RbConfig::CONFIG["LDFLAGS"]}
 DLDFLAGS = #{RbConfig::CONFIG["DLDFLAGS"]}
+EXTDLDFLAGS = #{RbConfig::CONFIG["EXTDLDFLAGS"]}
 LDSHAREDXX = #{RbConfig::CONFIG["LDSHAREDXX"]}
 CCDLFLAGS = #{RbConfig::CONFIG["CCDLFLAGS"]}
 
@@ -67,7 +70,14 @@ install: $(LIBRARY)
 	"$(RUBY)" -run -e install -- $(LIBRARY) $(DESTDIR)/tmp/local/lib/
 
 $(LIBRARY): $(OBJECTS) Makefile
-	$(LDSHAREDXX) -o $@ $(OBJECTS) $(DLDFLAGS) $(LIBRUBYARG_SHARED)
+	$(LDSHAREDXX) \
+	  -o $@ \
+	  $(OBJECTS) \
+	  $(LDFLAGS) \
+	  $(DLDFLAGS) \
+	  $(EXTDLDFLAGS) \
+	  $(ARCH_FLAG) \
+	  $(LIBRUBYARG_SHARED)
 
 .cpp.o:
 	$(CXX) $(INCLUDEFLAGS) $(CPPFLAGS) $(CXXFLAGS) -o $@ -c $<
