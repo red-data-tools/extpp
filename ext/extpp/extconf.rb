@@ -42,6 +42,8 @@ CXX = #{RbConfig::CONFIG["CXX"].quote}
 RUBY = #{RbConfig.ruby.quote}
 RUBY_HEADER_DIR = #{RbConfig::CONFIG["rubyhdrdir"].quote}
 RUBY_ARCH_HEADER_DIR = #{RbConfig::CONFIG["rubyarchhdrdir"].quote}
+LIBRUBYARG_SHARED = #{RbConfig::CONFIG["LIBRUBYARG_SHARED"]}
+DLDFLAGS = #{RbConfig::CONFIG["DLDFLAGS"]}
 LDSHAREDXX = #{RbConfig::CONFIG["LDSHAREDXX"]}
 CCDLFLAGS = #{RbConfig::CONFIG["CCDLFLAGS"]}
 
@@ -64,8 +66,8 @@ dist-clean:
 install: $(LIBRARY)
 	"$(RUBY)" -run -e install -- $(LIBRARY) $(DESTDIR)/tmp/local/lib/
 
-$(LIBRARY): $(OBJECTS)
-	$(LDSHAREDXX) -o $@ $^
+$(LIBRARY): $(OBJECTS) Makefile
+	$(LDSHAREDXX) -o $@ $(OBJECTS) $(DLDFLAGS) $(LIBRUBYARG_SHARED)
 
 .cpp.o:
 	$(CXX) $(INCLUDEFLAGS) $(CPPFLAGS) $(CXXFLAGS) -o $@ -c $<
