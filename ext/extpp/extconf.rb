@@ -33,6 +33,7 @@ case RUBY_PLATFORM
 when /darwin/
   ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"]
   ldsharedxx = ldsharedxx.gsub(/ (?:-dynamic|-bundle)/, "") + " -shared"
+  ldsharedxx += " -install_name #{Dir.pwd.quote}/$(LIBRARY)"
 else
   ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"]
 end
