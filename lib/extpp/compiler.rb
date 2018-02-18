@@ -30,17 +30,40 @@ module Extpp
 
     def check_version
       return unless gcc?
+
       checking_for(checking_message("g++ version"), "%g%s") do
-        version = nil
+        version = 0.0
         std = nil
-        if /\Ag\+\+ .+ (\d\.\d)\.\d/ =~ `#{RbConfig.expand("$(CXX) --version")}`
+
+        case `#{RbConfig.expand("$(CXX) --version")}`
+        when /\Ag\+\+ .+ (\d\.\d)\.\d/
           version = Float($1)
           if version < 5.1
             std = "gnu++11"
           elsif version < 6.1
             std = "gnu++14"
           end
+        when /\A.+ clang version (\d\.\d)\.\d/
+          version = Float($1)
+          if version < 3.5
+            std = "gnu++11"
+          elsif version < 5
+            std = "gnu++14"
+          else
+            std = "gnu++17"
+          end
+        when /\AApple LLVM version (\d\.\d)\.\d/
+          version = Float($1)
+          # TODO: Is it right?
+          if version < 9.0
+            std = "gnu++11"
+          elsif version < 9.1
+            std = "gnu++14"
+          else
+            std = "gnu++17"
+          end
         end
+
         if std
           @cxx_flags += " -std=#{std}"
           [version, " (#{std})"]
