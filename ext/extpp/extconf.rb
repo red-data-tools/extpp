@@ -27,9 +27,21 @@ public_headers = collect_headers(include_dir)
 private_headers = collect_headers(__dir__)
 headers = public_headers + private_headers
 
+case RUBY_VERSION
+when /windows/, /mingw/
+  dlext = "dll"
+  ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"]
+when /darwin/
+  dlext = "dylib"
+  ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"].gsub(/ -bundle/, "")
+else
+  dlext = RbConfig::CONFIG["DLEXT"]
+  ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"]
+end
+
 File.open("Makefile", "w") do |makefile|
   makefile.puts(<<-MAKEFILE)
-LIBRARY = libruby-extpp.#{RbConfig::CONFIG["DLEXT"]}
+LIBRARY = libruby-extpp.#{dlext}
 
 SOURCES = #{sources.collect(&:quote).join(" ")}
 OBJECTS = #{objects.collect(&:quote).join(" ")}
@@ -47,7 +59,7 @@ ARCH_FLAG = #{RbConfig::CONFIG["ARCH_FLAG"]}
 LDFLAGS = #{RbConfig::CONFIG["LDFLAGS"]}
 DLDFLAGS = #{RbConfig::CONFIG["DLDFLAGS"]}
 EXTDLDFLAGS = #{RbConfig::CONFIG["EXTDLDFLAGS"]}
-LDSHAREDXX = #{RbConfig::CONFIG["LDSHAREDXX"]}
+LDSHAREDXX = #{ldsharedxx}
 CCDLFLAGS = #{RbConfig::CONFIG["CCDLFLAGS"]}
 
 INCLUDEFLAGS = \
@@ -70,13 +82,13 @@ install: $(LIBRARY)
 	"$(RUBY)" -run -e install -- $(LIBRARY) $(DESTDIR)/tmp/local/lib/
 
 $(LIBRARY): $(OBJECTS) Makefile
-	$(LDSHAREDXX) \
-	  -o $@ \
-	  $(OBJECTS) \
-	  $(LDFLAGS) \
-	  $(DLDFLAGS) \
-	  $(EXTDLDFLAGS) \
-	  $(ARCH_FLAG) \
+	$(LDSHAREDXX) \\
+	  -o $@ \\
+	  $(OBJECTS) \\
+	  $(LDFLAGS) \\
+	  $(DLDFLAGS) \\
+	  $(EXTDLDFLAGS) \\
+	  $(ARCH_FLAG) \\
 	  $(LIBRUBYARG_SHARED)
 
 .cpp.o:
