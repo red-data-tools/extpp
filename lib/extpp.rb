@@ -1,6 +1,7 @@
 require "extpp/compiler"
+require "extpp/platform"
 
-compiler = Extpp::Compiler.new($CXXFLAGS)
+compiler = ExtPP::Compiler.new($CXXFLAGS)
 compiler.check
 $CXXFLAGS = compiler.cxx_flags
 
@@ -26,11 +27,13 @@ $(OBJS): $(extpp_headers)
 end
 extend(header_files_dependency_injector)
 
+platform = ExtPP::Platform.new
+
 [
   File.join(__dir__, "..", "ext", "extpp"),
   __dir__,
 ].each do |candidate_dir|
-  so_name = "libruby-extpp.#{RbConfig::CONFIG["DLEXT"]}"
+  so_name = "libruby-extpp.#{platform.dynamic_library_extension}"
   lib_path = File.expand_path(File.join(candidate_dir, so_name))
   $LIBS += " #{lib_path.quote}" if File.exist?(lib_path)
 end

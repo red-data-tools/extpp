@@ -1,7 +1,8 @@
 require_relative "../../lib/extpp/compiler"
+require_relative "../../lib/extpp/platform"
 
 cxxflags = RbConfig::CONFIG["CXXFLAGS"]
-compiler = Extpp::Compiler.new(cxxflags)
+compiler = ExtPP::Compiler.new(cxxflags)
 compiler.check
 cxxflags = compiler.cxx_flags
 
@@ -27,21 +28,17 @@ public_headers = collect_headers(include_dir)
 private_headers = collect_headers(__dir__)
 headers = public_headers + private_headers
 
+platform = ExtPP::Platform.new
 case RUBY_PLATFORM
-when /windows/, /mingw/
-  dlext = "dll"
-  ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"]
 when /darwin/
-  dlext = "dylib"
   ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"].gsub(/ -bundle/, "")
 else
-  dlext = RbConfig::CONFIG["DLEXT"]
   ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"]
 end
 
 File.open("Makefile", "w") do |makefile|
   makefile.puts(<<-MAKEFILE)
-LIBRARY = libruby-extpp.#{dlext}
+LIBRARY = libruby-extpp.#{platform.dynamic_library_extension}
 
 SOURCES = #{sources.collect(&:quote).join(" ")}
 OBJECTS = #{objects.collect(&:quote).join(" ")}

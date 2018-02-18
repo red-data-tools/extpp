@@ -1,6 +1,6 @@
 require "mkmf"
 
-module Extpp
+module ExtPP
   class Compiler
     attr_reader :cxx_flags
     def initialize(cxx_flags)
