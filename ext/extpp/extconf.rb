@@ -27,7 +27,7 @@ public_headers = collect_headers(include_dir)
 private_headers = collect_headers(__dir__)
 headers = public_headers + private_headers
 
-case RUBY_VERSION
+case RUBY_PLATFORM
 when /windows/, /mingw/
   dlext = "dll"
   ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"]
