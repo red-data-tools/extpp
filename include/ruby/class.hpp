@@ -5,7 +5,8 @@
 namespace rb {
   class Class: public Object {
   public:
-    Class(const char *name, VALUE parent=rb_cObject);
+    Class(const char *name);
+    Class(const char *name, VALUE parent);
     Class(VALUE klass);
     ~Class();
 

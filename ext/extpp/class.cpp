@@ -222,6 +222,19 @@ namespace rb {
     MethodDefinitions *method_definitions_;
   };
 
+  Class::Class(const char *name) :
+    Object(RTEST(rb_funcall(rb_cObject,
+                            rb_intern("const_defined?"),
+                            1,
+                            rb_str_new_static(name, strlen(name)))) ?
+           rb_funcall(rb_cObject,
+                      rb_intern("const_get"),
+                      1,
+                      rb_str_new_static(name, strlen(name))) :
+           rb_define_class(name, rb_cObject)),
+    impl_(new ClassImpl(this->to_ruby())) {
+  }
+
   Class::Class(const char *name, VALUE parent) :
     Object(rb_define_class(name, parent)),
     impl_(new ClassImpl(this->to_ruby())) {

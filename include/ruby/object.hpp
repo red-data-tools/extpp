@@ -13,7 +13,10 @@ namespace rb {
     }
 
     explicit Object(const char *name) :
-      rb_object_(rb_const_get(rb_cObject, rb_intern(name))),
+      rb_object_(rb_funcall(rb_cObject,
+                            rb_intern("const_get"),
+                            1,
+                            rb_str_new_static(name, strlen(name)))),
       is_gc_guarding_(false) {
     }
 
