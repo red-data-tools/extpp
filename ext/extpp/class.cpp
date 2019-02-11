@@ -108,7 +108,7 @@ namespace {
       (*method_table)[name_id] = definition.function;
       rb_define_method(klass,
                        definition.name.c_str(),
-                       reinterpret_cast<rb::MethodFunc>(call_func),
+                       reinterpret_cast<rb::RawMethod>(call_func),
                        -1);
     }
     rb_ivar_set(klass, id_method_definitions, Qnil);
@@ -179,18 +179,18 @@ namespace rb {
                 method_definitions_to_ruby(method_definitions_));
       rb_define_method(class_,
                        "method_missing",
-                       reinterpret_cast<MethodFunc>(method_missing),
+                       reinterpret_cast<RawMethod>(method_missing),
                        -1);
       rb_define_method(class_,
                        "respond_to_missing?",
-                       reinterpret_cast<MethodFunc>(respond_to_missing_p),
+                       reinterpret_cast<RawMethod>(respond_to_missing_p),
                        -1);
     }
 
     void define_method(const char *name, VALUE (*body)(VALUE self)) {
       rb_define_method(class_,
                        name,
-                       reinterpret_cast<MethodFunc>(body),
+                       reinterpret_cast<RawMethod>(body),
                        0);
     }
 
@@ -198,7 +198,7 @@ namespace rb {
                        VALUE (*body)(int argc, VALUE *argv, VALUE self)) {
       rb_define_method(class_,
                        name,
-                       reinterpret_cast<MethodFunc>(body),
+                       reinterpret_cast<RawMethod>(body),
                        -1);
     }
 
@@ -210,7 +210,7 @@ namespace rb {
         (*method_table_)[name_id] = function;
         rb_define_method(class_,
                          name,
-                         reinterpret_cast<MethodFunc>(call_func),
+                         reinterpret_cast<RawMethod>(call_func),
                          -1);
       }
     }

@@ -3,7 +3,7 @@
 #include <ruby.h>
 
 namespace rb {
-  using MethodFunc = VALUE (*)(ANYARGS);
+  using RawMethod = VALUE (*)(ANYARGS);
 
   using MethodWithoutArguments = VALUE (*)(VALUE self);
   using MethodWithArguments = VALUE (*)(VALUE self, int argc, VALUE *argv);

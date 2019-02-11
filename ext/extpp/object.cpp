@@ -41,7 +41,7 @@ namespace rb {
                                     name_id,
                                     static_cast<int>(n),
                                     rb_args,
-                                    reinterpret_cast<MethodFunc>(call_block),
+                                    reinterpret_cast<RawMethod>(call_block),
                                     reinterpret_cast<VALUE>(block));
     return Object(rb_result);
   }
