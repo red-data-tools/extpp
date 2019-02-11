@@ -39,4 +39,8 @@ class CastTest < Test::Unit::TestCase
   def test_string
     assert_equal("Hello", @caster.cast_string("Hello"))
   end
+
+  def test_std_string
+    assert_equal("Hello", @caster.cast_std_string("Hello"))
+  end
 end

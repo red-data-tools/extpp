@@ -28,5 +28,12 @@ Init_cast(void)
         VALUE rb_string;
         rb_scan_args(argc, argv, "1", &rb_string);
         return rb::cast<rb::Object>(rb::cast<const char *>(rb::Object(rb_string)));
+      }).
+    define_method("cast_std_string",
+                  [](VALUE self, int argc, VALUE *argv) -> VALUE {
+        VALUE rb_string;
+        rb_scan_args(argc, argv, "1", &rb_string);
+        const std::string std_string = rb::cast<std::string>(rb::Object(rb_string));
+        return rb::cast<rb::Object>(std_string);
       });
 }

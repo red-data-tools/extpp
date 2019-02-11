@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include <ruby/object.hpp>
 
 namespace rb {
@@ -70,5 +72,19 @@ namespace rb {
   template <>
   inline Object cast<Object, const char *, long>(const char *data, long size) {
     return Object(rb_str_new(data, size));
+  }
+
+
+  template <>
+  inline std::string cast<std::string, Object>(Object rb_object) {
+    VALUE rb_object_raw = rb_object;
+    return std::string(RSTRING_PTR(rb_object_raw),
+                       RSTRING_LEN(rb_object_raw));
+  }
+
+  // TODO: Can we avoid copying the argument?
+  template <>
+  inline Object cast<Object, std::string>(std::string string) {
+    return Object(rb_str_new(string.data(), string.size()));
   }
 }
