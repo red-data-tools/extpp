@@ -9,4 +9,6 @@ namespace rb {
   using MethodWithArguments = VALUE (*)(VALUE self, int argc, VALUE *argv);
   using MethodWithArgumentsCompatible =
     VALUE (*)(int argc, VALUE *argv, VALUE self);
+
+  using RawCallback = VALUE (*)(VALUE user_data);
 }

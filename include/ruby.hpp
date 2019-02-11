@@ -8,3 +8,4 @@
 #include <ruby/cast.hpp>
 #include <ruby/class.hpp>
 #include <ruby/object.hpp>
+#include <ruby/protect.hpp>
