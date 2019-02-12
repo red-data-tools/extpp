@@ -10,3 +10,6 @@ addons:
     packages:
     - gcc-4.9
     - g++-4.9
+
+before_script:
+  - ruby -rpp -rrbconfig -e 'pp RbConfig::CONFIG'
