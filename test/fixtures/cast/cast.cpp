@@ -33,7 +33,7 @@ Init_cast(void)
                   [](VALUE self, int argc, VALUE *argv) -> VALUE {
         VALUE rb_string;
         rb_scan_args(argc, argv, "1", &rb_string);
-        const std::string std_string = rb::cast<std::string>(rb::Object(rb_string));
+        const auto std_string = rb::cast<std::string>(rb::Object(rb_string));
         return rb::cast<rb::Object>(std_string);
       });
 }
