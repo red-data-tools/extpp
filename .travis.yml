@@ -3,13 +3,19 @@ notifications:
     recipients:
       - red-data-tools@ml.commit-email.info
 
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - gcc-4.9
-    - g++-4.9
+dist: xenial
 
-before_script:
-  - ruby -rpp -rrbconfig -e 'pp RbConfig::CONFIG'
+matrix:
+  include:
+    - name: "2.3"
+      rvm: 2.3
+    - name: "2.4"
+      rvm: 2.4
+    - name: "2.5"
+      rvm: 2.5
+    - name: "2.6"
+      rvm: 2.6
+    - name: "trunk"
+      rvm: ruby-head
+    - name: "macOS"
+      os: osx
