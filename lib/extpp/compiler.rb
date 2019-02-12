@@ -35,7 +35,7 @@ module ExtPP
         version = 0.0
         std = nil
 
-        case `#{RbConfig.expand("$(CXX) --version")}`
+        case RbConfig::CONFIG["CC_VERSION_MESSAGE"]
         when /\Ag\+\+ .+ (\d\.\d)\.\d/
           version = Float($1)
           if version < 5.1
