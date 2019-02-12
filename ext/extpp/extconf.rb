@@ -38,6 +38,11 @@ else
   ldsharedxx = RbConfig::CONFIG["LDSHAREDXX"]
 end
 
+librubyarg_shared = RbConfig::CONFIG["LIBRUBYARG_SHARED"]
+if platform.gcc? and !librubyarg_shared.include?("-L")
+  librubyarg_shared += " -L$(libdir)"
+end
+
 File.open("Makefile", "w") do |makefile|
   makefile.puts(<<-MAKEFILE)
 LIBRARY = libruby-extpp.#{platform.dynamic_library_extension}
@@ -54,10 +59,11 @@ RUBY = #{RbConfig.ruby.quote}
 RUBY_HEADER_DIR = #{RbConfig::CONFIG["rubyhdrdir"].quote}
 RUBY_ARCH_HEADER_DIR = #{RbConfig::CONFIG["rubyarchhdrdir"].quote}
 
+libdir = #{RbConfig::CONFIG["libdir"].quote}
 sitearchdir = #{RbConfig::CONFIG["sitearchdir"].quote}
 sitelibdir = #{RbConfig::CONFIG["sitelibdir"].quote}
 
-LIBRUBYARG_SHARED = #{RbConfig::CONFIG["LIBRUBYARG_SHARED"]}
+LIBRUBYARG_SHARED = #{librubyarg_shared}
 ARCH_FLAG = #{RbConfig::CONFIG["ARCH_FLAG"]}
 LDFLAGS = #{RbConfig::CONFIG["LDFLAGS"]}
 DLDFLAGS = #{RbConfig::CONFIG["DLDFLAGS"]}

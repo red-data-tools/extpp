@@ -10,5 +10,9 @@ module ExtPP
         RbConfig::CONFIG["DLEXT"]
       end
     end
+
+    def gcc?
+      RbConfig::CONFIG["GCC"] == "yes"
+    end
   end
 end
