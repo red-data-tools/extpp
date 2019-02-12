@@ -39,7 +39,7 @@ else
 end
 
 librubyarg_shared = RbConfig::CONFIG["LIBRUBYARG_SHARED"]
-if platform.gcc? and !librubyarg_shared.include?("-L")
+if compiler.gcc? and !librubyarg_shared.include?("-L")
   librubyarg_shared += " -L$(libdir)"
 end
 
