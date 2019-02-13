@@ -3,7 +3,7 @@
 namespace {
   class Notifier {
   public:
-    Notifier(std::string prefix, rb::Object&& listener) :
+    Notifier(std::string prefix, rb::Object listener) :
       prefix_(prefix),
       listener_(listener) {
       notify("constructed");
@@ -33,9 +33,9 @@ Init_protect(void)
       VALUE rb_listener;
       VALUE rb_block;
       rb_scan_args(argc, argv, "1&", &rb_listener, &rb_block);
-      Notifier outer("outer: ", std::move(rb::Object(rb_listener)));
+      Notifier outer("outer: ", rb::Object(rb_listener));
       try {
-        Notifier inner("inner: ", std::move(rb::Object(rb_listener)));
+        Notifier inner("inner: ", rb::Object(rb_listener));
         rb::protect(
           [](VALUE rb_block) -> VALUE {
             return rb::Object(rb_block).send("call");
