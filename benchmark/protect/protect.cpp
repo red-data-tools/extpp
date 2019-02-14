@@ -103,7 +103,7 @@ Init_protect(void)
                    1);
   rb_define_method(klass,
                    "protect_nothing_closure",
-                   reinterpret_cast<rb::RawMethod>(rb_protect_nothing),
+                   reinterpret_cast<rb::RawMethod>(rb_protect_nothing_closure),
                    1);
   rb_define_method(klass,
                    "protect_c",
