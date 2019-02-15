@@ -24,10 +24,14 @@ class ProtectTest < Test::Unit::TestCase
     end
   end
 
-  def test_protect
+  def setup
+    @protect_methods = ProtectMethods.new
+  end
+
+  def assert_protect(method_name)
     listener = Listener.new
     assert_raise(RuntimeError.new("message")) do
-      ProtectMethods.new.protect(listener) do
+      @protect_methods.__send__(method_name, listener) do
         raise "message"
       end
     end
@@ -38,5 +42,13 @@ class ProtectTest < Test::Unit::TestCase
                    "outer: caught",
                  ],
                  listener.events)
+  end
+
+  def test_raw
+    assert_protect(:protect_raw)
+  end
+
+  def test_closure
+    assert_protect(:protect_closure)
   end
 end

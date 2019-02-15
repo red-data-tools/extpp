@@ -2,8 +2,6 @@
 
 #include <ruby/type.hpp>
 
-#include <functional>
-
 namespace rb {
   class State {
   public:
@@ -20,5 +18,20 @@ namespace rb {
   };
 
   VALUE protect(RawCallback callback, VALUE callback_data);
-  VALUE protect(std::function<VALUE()> callback);
+
+  template <typename CALLBACK>
+  VALUE protect(const CALLBACK& callback) {
+    struct Data {
+      Data(const CALLBACK& callback) :
+        callback_(callback) {
+      }
+      const CALLBACK& callback_;
+    } data(callback);
+    auto callback_data = reinterpret_cast<VALUE>(&data);
+    return protect([](VALUE callback_data) -> VALUE {
+                     auto data = reinterpret_cast<Data *>(callback_data);
+                     return data->callback_();
+                   },
+                   callback_data);
+  };
 }
