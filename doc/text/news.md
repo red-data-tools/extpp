@@ -1,5 +1,19 @@
 # News
 
+## 0.0.4 - 2019-02-16
+
+### Improvements
+
+  * `rb::Class(const char *name)`: Added.
+
+  * `rb::protect()`: Added.
+
+  * `rb::cast<std::string>(rb::Object)`: Added.
+
+  * `rb::cast<rb::Object(std::string)`: Added.
+
+  * Added support for auto needless C++ compiler warning flags remove.
+
 ## 0.0.3 - 2018-02-18
 
 ### Improvements
