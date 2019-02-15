@@ -2,7 +2,6 @@
 
 require "rubygems"
 require "bundler/gem_helper"
-require "packnga"
 
 base_dir = File.join(File.dirname(__FILE__))
 
@@ -12,15 +11,6 @@ def helper.version_tag
 end
 
 helper.install
-spec = helper.gemspec
-
-Packnga::DocumentTask.new(spec) do |task|
-  task.original_language = "en"
-  task.translate_language = "ja"
-end
-
-Packnga::ReleaseTask.new(spec) do
-end
 
 def run_extconf(*arguments)
   cd("ext/extpp") do
