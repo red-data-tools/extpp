@@ -1,7 +1,7 @@
 require "extpp/compiler"
 require "extpp/platform"
 
-compiler = ExtPP::Compiler.new($CXXFLAGS)
+compiler = ExtPP::Compiler.new(RbConfig.expand($CXXFLAGS))
 compiler.check
 $CXXFLAGS = compiler.cxx_flags
 

@@ -1,7 +1,7 @@
 require_relative "../../lib/extpp/compiler"
 require_relative "../../lib/extpp/platform"
 
-cxxflags = RbConfig::CONFIG["CXXFLAGS"]
+cxxflags = RbConfig.expand("$(CXXFLAGS)")
 compiler = ExtPP::Compiler.new(cxxflags)
 compiler.check
 cxxflags = compiler.cxx_flags

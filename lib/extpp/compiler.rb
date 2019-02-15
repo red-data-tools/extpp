@@ -14,6 +14,7 @@ module ExtPP
     def check
       check_debug_build
       check_version
+      check_warning_flags
     end
 
     private
@@ -87,6 +88,39 @@ module ExtPP
           [version, ""]
         end
       end
+    end
+
+    def try_cxx_warning_flag(warning_flag)
+      conftest_cxx = "#{CONFTEST}.cpp"
+      begin
+        source = "int main(void) {return 0;}"
+        open(conftest_cxx, "wb") do |cxx_file|
+          cxx_file.print(source)
+        end
+        flags = "-Werror #{warning_flag}"
+        xsystem(RbConfig.expand("$(CXX) #{flags} -c #{conftest_cxx}"))
+      ensure
+        log_src(source)
+        MakeMakefile.rm_f(conftest_cxx)
+      end
+    end
+
+    def check_warning_flags
+      flags = []
+      warning_flags = []
+      Shellwords.split(@cxx_flags).each do |flag|
+        if flag.start_with?("-W")
+          warning_flags << flag
+        else
+          flags << flag
+        end
+      end
+      warning_flags.each do |warning_flag|
+        if try_cxx_warning_flag(warning_flag.gsub(/\A-Wno-/, "-W"))
+          flags << warning_flag
+        end
+      end
+      @cxx_flags = Shellwords.join(flags)
     end
   end
 end
