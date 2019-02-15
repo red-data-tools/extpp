@@ -13,33 +13,26 @@ end
 
 helper.install
 
-def build_dir
-  "ext/extpp"
-end
-
-def makefile
-  "#{build_dir}/Makefile"
-end
-
 def run_extconf(*arguments)
-  cd(build_dir) do
+  cd("ext/extpp") do
     ruby("extconf.rb", *arguments)
   end
 end
 
 desc "Configure"
-task :configure => makefile do
+task :configure do
   run_extconf
 end
 
 namespace :configure do
   desc "Configure for debug"
-  task :debug => makefile do
+  task :debug do
     run_extconf("--enable-debug-build")
   end
 end
 
 task :clean do
+  makefile = "ext/extpp/Makefile"
   if File.exists?(makefile)
     cd(File.dirname(makefile)) do
       sh("make", "clean")
