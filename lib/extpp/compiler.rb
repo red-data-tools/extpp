@@ -76,7 +76,7 @@ module ExtPP
           else
             std = "gnu++17"
           end
-        when /\AApple LLVM version (\d\.\d)\.\d/
+        when /\AApple LLVM version (\d+\.\d+)\.\d/
           version = Float($1)
           # TODO: Is it right?
           if version < 9.0
