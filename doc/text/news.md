@@ -1,5 +1,16 @@
 # News
 
+## 0.0.5 - 2019-02-25
+
+### Improvements
+
+  * Added support for Xcode 10.
+    [GitHub#4][Reported by Kenta Murata]
+
+### Thanks
+
+  * Kenta Murata
+
 ## 0.0.4 - 2019-02-16
 
 ### Improvements
