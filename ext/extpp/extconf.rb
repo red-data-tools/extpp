@@ -76,7 +76,7 @@ INCLUDEFLAGS = \
 	-I$(RUBY_HEADER_DIR) \
 	-I$(RUBY_ARCH_HEADER_DIR)
 CPPFLAGS = #{RbConfig::CONFIG["CPPFLAGS"]}
-CXXFLAGS = $(CCDLFLAGS) #{cxxflags}
+CXXFLAGS = -std=c++11 $(CCDLFLAGS) #{cxxflags}
 
 all: $(LIBRARY)
 
