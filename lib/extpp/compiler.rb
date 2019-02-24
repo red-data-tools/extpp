@@ -13,6 +13,7 @@ module ExtPP
 
     def check
       check_debug_build
+      check_cxx
       check_version
       check_warning_flags
     end
@@ -42,6 +43,12 @@ module ExtPP
         flags.gsub(/(^|\s)(?:-g|-g\d|-ggdb\d?)(\s|$)/, '\\1-g3\\2')
       else
         flags
+      end
+    end
+
+    def check_cxx
+      checking_for(checking_message("C++ compiler"), "%s") do
+        RbConfig.expand("$(CXX)")
       end
     end
 
