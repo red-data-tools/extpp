@@ -9,7 +9,7 @@ namespace rb {
       state_(state) {
     }
 
-    inline void jump() {
+    [[noreturn]] inline void jump() {
       rb_jump_tag(state_);
     }
 
