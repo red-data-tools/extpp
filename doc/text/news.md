@@ -1,5 +1,19 @@
 # News
 
+## 0.0.6 - 2019-02-25
+
+### Improvements
+
+  * Suppressed warnings by `register`.
+    [GitHub#6][Patch by Kenta Murata]
+
+  * Added `noreturn` attribute to suppress warning.
+    [GitHub#7][Patch by Kenta Murata]
+
+### Thanks
+
+  * Kenta Murata
+
 ## 0.0.5 - 2019-02-25
 
 ### Improvements
