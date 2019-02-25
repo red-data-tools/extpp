@@ -86,6 +86,7 @@ module ExtPP
           else
             std = "gnu++17"
           end
+          cxx_flags = "-Wno-deprecated-register"
         end
 
         if std
@@ -96,6 +97,7 @@ module ExtPP
             std = "gnu++14"
           end
           @cxx_flags += " -std=#{std}"
+          @cxx_flags += " #{cxx_flags}" if cxx_flags
           [version, " (#{std})"]
         else
           [version, ""]
