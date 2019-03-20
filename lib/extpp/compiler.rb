@@ -66,6 +66,8 @@ module ExtPP
             std = "gnu++11"
           elsif version < 6.1
             std = "gnu++14"
+          else
+            std = "gnu++17"
           end
         when /\A.+ clang version (\d\.\d)\.\d/
           version = Float($1)
