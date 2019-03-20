@@ -17,7 +17,7 @@ namespace rb {
     int state_;
   };
 
-  VALUE protect(RawCallback callback, VALUE callback_data);
+  RB_EXTPP_EXPORT VALUE protect(RawCallback callback, VALUE callback_data);
 
   template <typename CALLBACK>
   VALUE protect(const CALLBACK& callback) {
