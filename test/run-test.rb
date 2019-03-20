@@ -10,9 +10,17 @@ ext_dir = base_dir + "ext" + "extpp"
 lib_dir = base_dir + "lib"
 test_dir = base_dir + "test"
 
-Dir.chdir(ext_dir.to_s) do
-  if File.exist?("Makefile")
-    system("make > /dev/null") or exit(false)
+make = nil
+if system("type gmake > #{File::NULL}")
+  make = "gmake"
+elsif system("type make > #{File::NULL}")
+  make = "make"
+end
+if make
+  Dir.chdir(ext_dir.to_s) do
+    if File.exist?("Makefile")
+      system("#{make} > #{File::NULL}") or exit(false)
+    end
   end
 end
 
