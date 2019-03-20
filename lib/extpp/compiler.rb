@@ -135,7 +135,12 @@ module ExtPP
           flags << warning_flag
         end
       end
-      @cxx_flags = Shellwords.join(flags)
+      case RUBY_PLATFORM
+      when /windows/, /mingw/
+        @cxx_flags = flags.join(" ")
+      else
+        @cxx_flags = Shellwords.join(flags)
+      end
     end
   end
 end
