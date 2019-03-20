@@ -3,7 +3,7 @@
 #include <ruby/type.hpp>
 
 namespace rb {
-  class State {
+  class RB_EXTPP_EXPORT State {
   public:
     explicit State(int state) :
       state_(state) {

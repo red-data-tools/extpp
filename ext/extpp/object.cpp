@@ -1,4 +1,4 @@
-#include <ruby/object.hpp>
+#include <ruby.hpp>
 
 namespace {
   VALUE call_block(RB_BLOCK_CALL_FUNC_ARGLIST(rb_data, rb_block)) {

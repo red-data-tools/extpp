@@ -3,7 +3,7 @@
 #include <ruby/object.hpp>
 
 namespace rb {
-  class Class: public Object {
+  class RB_EXTPP_EXPORT Class: public Object {
   public:
     Class(const char *name);
     Class(const char *name, VALUE parent);

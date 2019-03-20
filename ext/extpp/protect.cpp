@@ -1,4 +1,4 @@
-#include <ruby/protect.hpp>
+#include <ruby.hpp>
 
 namespace rb {
   VALUE protect(RawCallback callback, VALUE callback_data) {

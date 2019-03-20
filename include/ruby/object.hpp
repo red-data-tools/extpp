@@ -5,7 +5,7 @@
 #include <initializer_list>
 
 namespace rb {
-  class Object {
+  class RB_EXTPP_EXPORT Object {
   public:
     explicit Object(VALUE rb_object=Qnil) :
       rb_object_(rb_object),
