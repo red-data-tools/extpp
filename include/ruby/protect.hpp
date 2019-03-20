@@ -19,13 +19,13 @@ namespace rb {
 
   RB_EXTPP_EXPORT VALUE protect(RawCallback callback, VALUE callback_data);
 
-  template <typename CALLBACK>
-  VALUE protect(const CALLBACK& callback) {
+  template <typename NoArgumentCallback>
+  VALUE protect(const NoArgumentCallback& callback) {
     struct Data {
-      Data(const CALLBACK& callback) :
+      Data(const NoArgumentCallback& callback) :
         callback_(callback) {
       }
-      const CALLBACK& callback_;
+      const NoArgumentCallback& callback_;
     } data(callback);
     auto callback_data = reinterpret_cast<VALUE>(&data);
     return protect([](VALUE callback_data) -> VALUE {
