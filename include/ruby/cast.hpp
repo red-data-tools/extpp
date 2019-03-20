@@ -36,12 +36,12 @@ namespace rb {
 
   template <>
   inline int64_t cast<int64_t, Object>(const Object& rb_object) {
-    return NUM2LONG(rb_object);
+    return NUM2LL(rb_object);
   }
 
   template <>
   inline Object cast<Object, int64_t>(const int64_t& n) {
-    return Object(LONG2NUM(n));
+    return Object(LL2NUM(n));
   }
 
 
@@ -58,12 +58,12 @@ namespace rb {
 
   template <>
   inline uint64_t cast<uint64_t, Object>(const Object& rb_object) {
-    return NUM2ULONG(rb_object);
+    return NUM2ULL(rb_object);
   }
 
   template <>
   inline Object cast<Object, uint64_t>(const uint64_t& n) {
-    return Object(ULONG2NUM(n));
+    return Object(ULL2NUM(n));
   }
 
 
