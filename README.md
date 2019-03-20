@@ -90,12 +90,12 @@ Build this extension:
 Now, you can use this extension:
 
 ```console
-% ruby -r ./hello -e 'p Hello.new("me").greet'
+% ruby -r extpp/setup -r ./hello -e 'p Hello.new("me").greet'
 "Hello me"
 ```
 
 ## License
 
-Copyright (C) 2017-2018 Kouhei Sutou
+Copyright (C) 2017-2019 Kouhei Sutou
 
 The 2-Clause BSD License. See [LICENSE.txt](LICENSE.txt) for details.
