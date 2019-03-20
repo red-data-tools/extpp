@@ -1,5 +1,11 @@
 # News
 
+## 0.0.7 - 2019-03-021
+
+### Improvements
+
+  * Added support for Windows.
+
 ## 0.0.6 - 2019-02-25
 
 ### Improvements
