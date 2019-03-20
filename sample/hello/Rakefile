@@ -1,4 +1,9 @@
-task :default => :build
+task :default => :run
+
+desc "Run"
+task :run => :build do
+  ruby("hello.rb")
+end
 
 desc "Build"
 task :build => "hello.so"
