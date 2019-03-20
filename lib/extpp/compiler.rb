@@ -60,7 +60,7 @@ module ExtPP
         std = nil
 
         case `#{RbConfig.expand("$(CXX) --version")}`
-        when /\Ag\+\+ .+ (\d\.\d)\.\d/
+        when /g\+\+.+ (\d\.\d)\.\d/
           version = Float($1)
           if version < 5.1
             std = "gnu++11"
