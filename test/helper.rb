@@ -1,5 +1,7 @@
 require "test-unit"
 
+require "extpp/setup"
+
 module Helper
   module Fixture
     def fixture_path(*components)
