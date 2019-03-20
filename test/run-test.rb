@@ -11,9 +11,9 @@ lib_dir = base_dir + "lib"
 test_dir = base_dir + "test"
 
 make = nil
-if system("type gmake > #{File::NULL}")
+if system("which gmake > #{File::NULL} 2>&1")
   make = "gmake"
-elsif system("type make > #{File::NULL}")
+elsif system("which make > #{File::NULL} 2>&1")
   make = "make"
 end
 if make
