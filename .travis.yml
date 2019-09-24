@@ -32,3 +32,12 @@ matrix:
     - name: "macOS + Xcode 10.1"
       os: osx
       osx_image: xcode10.1
+    - name: "macOS + Xcode 10.2"
+      os: osx
+      osx_image: xcode10.2
+    - name: "macOS + Xcode 10.3"
+      os: osx
+      osx_image: xcode10.3
+    - name: "macOS + Xcode 11"
+      os: osx
+      osx_image: xcode11
