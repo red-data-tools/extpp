@@ -1,6 +1,24 @@
 # News
 
-## 0.0.7 - 2019-03-021
+## 0.0.8 - 2019-09-25
+
+### Improvements
+
+  * Changed to use `RbConfig::CONFIG["SOEXT"]`.
+    [Suggested by Nobuyoshi Nakada]
+
+  * Added `ExtpPP::Platform#shared_library_extension`.
+
+  * Added support for macOS Majave.
+    [GitHub#8][Patch by Josh Huckabee]
+
+### Thanks
+
+  * Nobuyoshi Nakada
+
+  * Josh Huckabee
+
+## 0.0.7 - 2019-03-21
 
 ### Improvements
 
