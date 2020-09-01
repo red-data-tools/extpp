@@ -53,7 +53,7 @@ HEADERS = #{headers.collect(&:quote).join(" ")}
 
 INCLUDE_DIR = #{include_dir.quote}
 
-CXX = #{RbConfig::CONFIG["CXX"].quote}
+CXX = #{RbConfig.expand("$(CXX)")}
 
 RUBY = #{RbConfig.ruby.quote}
 RUBY_HEADER_DIR = #{RbConfig::CONFIG["rubyhdrdir"].quote}
