@@ -1,5 +1,18 @@
 # News
 
+## 0.0.9 - 2020-11-03
+
+### Improvements
+
+  * Improved `clang++` version detection.
+    [GitHub#10][Patch by Alex Neill]
+
+  * Improved `g++` version detection.
+
+### Thanks
+
+  * Alex Neill
+
 ## 0.0.8 - 2019-09-25
 
 ### Improvements
