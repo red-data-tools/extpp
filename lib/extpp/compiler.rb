@@ -69,15 +69,6 @@ module ExtPP
           else
             std = "gnu++17"
           end
-        when /\A.*clang version (\d\.\d)\.\d/
-          version = Float($1)
-          if version < 3.5
-            std = "gnu++11"
-          elsif version < 5
-            std = "gnu++14"
-          else
-            std = "gnu++17"
-          end
         when /\AApple (?:LLVM|clang) version (\d+\.\d+)\.\d/
           version = Float($1)
           # TODO: Is it right?
@@ -89,6 +80,15 @@ module ExtPP
             std = "gnu++17"
           end
           cxx_flags = "-Wno-deprecated-register"
+        when /clang version (\d\.\d)\.\d/
+          version = Float($1)
+          if version < 3.5
+            std = "gnu++11"
+          elsif version < 5
+            std = "gnu++14"
+          else
+            std = "gnu++17"
+          end
         end
 
         if std
