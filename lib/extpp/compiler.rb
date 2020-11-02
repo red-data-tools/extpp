@@ -60,7 +60,7 @@ module ExtPP
         std = nil
 
         case `#{RbConfig.expand("$(CXX) --version")}`
-        when /g\+\+.+ (\d\.\d)\.\d/
+        when /g\+\+.+ (\d+\.\d+)\.\d/
           version = Float($1)
           if version < 5.1
             std = "gnu++11"
@@ -80,7 +80,7 @@ module ExtPP
             std = "gnu++17"
           end
           cxx_flags = "-Wno-deprecated-register"
-        when /clang version (\d\.\d)\.\d/
+        when /clang version (\d+\.\d+)\.\d/
           version = Float($1)
           if version < 3.5
             std = "gnu++11"
