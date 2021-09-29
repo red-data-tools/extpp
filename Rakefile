@@ -13,36 +13,9 @@ end
 
 helper.install
 
-def run_extconf(*arguments)
-  cd("ext/extpp") do
-    ruby("extconf.rb", *arguments)
-  end
-end
-
-desc "Configure"
-task :configure do
-  run_extconf
-end
-
-namespace :configure do
-  desc "Configure for debug"
-  task :debug do
-    run_extconf("--enable-debug-build")
-  end
-end
-
-task :clean do
-  makefile = "ext/extpp/Makefile"
-  if File.exists?(makefile)
-    cd(File.dirname(makefile)) do
-      sh("make", "clean")
-    end
-  end
-end
-
 desc "Run tests"
 task :test do
   ruby("test/run-test.rb")
 end
 
-task default: ["configure:debug", :test]
+task default: :test

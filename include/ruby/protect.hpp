@@ -3,7 +3,7 @@
 #include <ruby/type.hpp>
 
 namespace rb {
-  class RB_EXTPP_EXPORT State {
+  class State {
   public:
     explicit State(int state) :
       state_(state) {
@@ -17,7 +17,14 @@ namespace rb {
     int state_;
   };
 
-  RB_EXTPP_EXPORT VALUE protect(RawCallback callback, VALUE callback_data);
+  inline VALUE protect(RawCallback callback, VALUE callback_data) {
+    int state = 0;
+    auto result = rb_protect(callback, callback_data, &state);
+    if (state != 0) {
+      throw State(state);
+    }
+    return result;
+  }
 
   template <typename NoArgumentCallback>
   VALUE protect(const NoArgumentCallback& callback) {

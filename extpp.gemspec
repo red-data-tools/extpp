@@ -21,12 +21,9 @@ Gem::Specification.new do |spec|
   spec.files = ["README.md", "Rakefile"]
   spec.files += ["LICENSE.txt"]
   spec.files += Dir.glob("lib/**/*.rb")
-  spec.files += Dir.glob("ext/**/*.{cpp,hpp}")
   spec.files += Dir.glob("include/**/*.hpp")
   spec.files += Dir.glob("doc/text/**/*.*")
   spec.files += Dir.glob("sample/hello/{Rakefile,extconf.rb,hello.cpp}")
-  spec.extensions = ["ext/extpp/extconf.rb"]
-  spec.test_files += Dir.glob("test/**/*")
 
   spec.add_development_dependency("bundler")
   spec.add_development_dependency("rake")
