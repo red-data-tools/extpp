@@ -19,7 +19,7 @@ jobs:
           - windows-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
@@ -49,7 +49,7 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: ${{ matrix.xcode-version }}
-      - uses: ruby/setup-ruby@1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.0"
           bundler-cache: true
