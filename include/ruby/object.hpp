@@ -6,7 +6,7 @@
 
 namespace rb {
   namespace internal {
-    inline VALUE call_block(RB_BLOCK_CALL_FUNC_ARGLIST(rb_data, rb_block)) {
+    VALUE call_block(RB_BLOCK_CALL_FUNC_ARGLIST(rb_data, rb_block)) {
       auto block = reinterpret_cast<rb::MethodWithoutArguments>(rb_block);
       return block(rb_data);
     }
@@ -107,13 +107,12 @@ namespace rb {
       for (auto arg : args) {
         rb_args[i++] = arg;
       }
-      auto rb_result =
-        rb_block_call(rb_object_,
-                      name_id,
-                      static_cast<int>(n),
-                      rb_args,
-                      reinterpret_cast<RawMethod>(internal::call_block),
-                      reinterpret_cast<VALUE>(block));
+      auto rb_result = rb_block_call(rb_object_,
+                                     name_id,
+                                     static_cast<int>(n),
+                                     rb_args,
+                                     internal::call_block,
+                                     reinterpret_cast<VALUE>(block));
       return Object(rb_result);
     }
 
