@@ -48,7 +48,7 @@ namespace rb {
 
     VALUE method_table_to_ruby(rb::MethodTable *method_table) {
       if (NIL_P(MethodTable)) {
-        MethodTable = rb_define_class("MethodTable", rb_cData);
+        MethodTable = rb_define_class("MethodTable", rb_cObject);
       }
       return TypedData_Wrap_Struct(MethodTable, &MethodTableType, method_table);
     }
@@ -79,7 +79,7 @@ namespace rb {
 
     VALUE method_definitions_to_ruby(rb::MethodDefinitions *definitions) {
       if (NIL_P(MethodDefinitions)) {
-        MethodDefinitions = rb_define_class("MethodDefinitions", rb_cData);
+        MethodDefinitions = rb_define_class("MethodDefinitions", rb_cObject);
       }
       return TypedData_Wrap_Struct(MethodDefinitions,
                                    &MethodDefinitionsType,
