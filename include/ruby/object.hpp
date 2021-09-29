@@ -5,13 +5,6 @@
 #include <initializer_list>
 
 namespace rb {
-  namespace internal {
-    inline VALUE call_block(RB_BLOCK_CALL_FUNC_ARGLIST(rb_data, rb_block)) {
-      auto block = reinterpret_cast<rb::MethodWithoutArguments>(rb_block);
-      return block(rb_data);
-    }
-  }
-
   class Object {
   public:
     explicit Object(VALUE rb_object=Qnil) :
@@ -107,12 +100,22 @@ namespace rb {
       for (auto arg : args) {
         rb_args[i++] = arg;
       }
+      auto call_block = [](RB_BLOCK_CALL_FUNC_ARGLIST(rb_data, rb_block)) {
+        auto block = reinterpret_cast<rb::MethodWithoutArguments>(rb_block);
+        return block(rb_data);
+      };
+#ifdef RUBY_BACKWARD_CXXANYARGS_HPP
+#  define CAST_CALLER(caller) (caller)
+#else
+#  define CAST_CALLER(caller) reinterpret_cast<RawMethod>((caller))
+#endif
       auto rb_result = rb_block_call(rb_object_,
                                      name_id,
                                      static_cast<int>(n),
                                      rb_args,
-                                     internal::call_block,
+                                     CAST_CALLER(call_block),
                                      reinterpret_cast<VALUE>(block));
+#undef CAST_CALLER
       return Object(rb_result);
     }
 
