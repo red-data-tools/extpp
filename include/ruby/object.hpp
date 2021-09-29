@@ -6,7 +6,7 @@
 
 namespace rb {
   namespace internal {
-    VALUE call_block(RB_BLOCK_CALL_FUNC_ARGLIST(rb_data, rb_block)) {
+    inline VALUE call_block(RB_BLOCK_CALL_FUNC_ARGLIST(rb_data, rb_block)) {
       auto block = reinterpret_cast<rb::MethodWithoutArguments>(rb_block);
       return block(rb_data);
     }
