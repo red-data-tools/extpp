@@ -6,6 +6,7 @@ class ObjectTest < Test::Unit::TestCase
       return unless self == ObjectTest
       lib_dir = File.join(__dir__, "..", "lib")
       Dir.chdir(fixture_path("object")) do
+        system("make", "distclean") if File.exist?("Makefile")
         system(RbConfig.ruby, "-w", "-I", lib_dir, "extconf.rb")
         system("make")
       end

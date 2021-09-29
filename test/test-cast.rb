@@ -5,6 +5,7 @@ class CastTest < Test::Unit::TestCase
     def startup
       lib_dir = File.join(__dir__, "..", "lib")
       Dir.chdir(fixture_path("cast")) do
+        system("make", "distclean") if File.exist?("Makefile")
         system(RbConfig.ruby, "-w", "-I", lib_dir, "extconf.rb")
         system("make")
       end

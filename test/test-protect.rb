@@ -6,6 +6,7 @@ class ProtectTest < Test::Unit::TestCase
       return unless self == ProtectTest
       lib_dir = File.join(__dir__, "..", "lib")
       Dir.chdir(fixture_path("protect")) do
+        system("make", "distclean") if File.exist?("Makefile")
         system(RbConfig.ruby, "-w", "-I", lib_dir, "extconf.rb")
         system("make")
       end
