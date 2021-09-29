@@ -17,7 +17,7 @@ namespace rb {
       function_(function) {
     }
 
-    VALUE call(VALUE self, int argc, VALUE *argv) override {
+    inline VALUE call(VALUE self, int argc, VALUE *argv) override {
       return function_(self);
     }
 
@@ -31,7 +31,7 @@ namespace rb {
       function_(function) {
     }
 
-    VALUE call(VALUE self, int argc, VALUE *argv) override {
+    inline VALUE call(VALUE self, int argc, VALUE *argv) override {
       return function_(self, argc, argv);
     }
 
@@ -46,7 +46,7 @@ namespace rb {
       function_(function) {
     }
 
-    VALUE call(VALUE self, int argc, VALUE *argv) override {
+    inline VALUE call(VALUE self, int argc, VALUE *argv) override {
       return function_(argc, argv, self);
     }
 

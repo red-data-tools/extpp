@@ -188,25 +188,25 @@ namespace rb {
       rb_iv_set(class_, "__method_definitions__", Qnil);
     }
 
-    Class &define_method(const char *name,
+    inline Class &define_method(const char *name,
                                 MethodWithoutArguments body) {
       auto function = new FunctionWithoutArgument(body);
       return define_method(name, function);
     }
 
-    Class &define_method(const char *name,
-                         MethodWithArguments body) {
+    inline Class &define_method(const char *name,
+                                MethodWithArguments body) {
       auto function = new FunctionWithArguments(body);
       return define_method(name, function);
     }
 
-    Class &define_method(const char *name,
-                         MethodWithArgumentsCompatible body) {
+    inline Class &define_method(const char *name,
+                                MethodWithArgumentsCompatible body) {
       auto function = new FunctionWithArgumentsCompatible(body);
       return define_method(name, function);
     }
 
-    Class &define_method(const char *name, Function *function) {
+    inline Class &define_method(const char *name, Function *function) {
       if (lazy_define_method_) {
         method_definitions_->emplace_back(name, function);
       } else {
@@ -220,7 +220,7 @@ namespace rb {
       return (Class &)*this;
     }
 
-    Class &enable_lazy_define_method() {
+    inline Class &enable_lazy_define_method() {
       if (lazy_define_method_) {
         return (Class &)*this;
       }
