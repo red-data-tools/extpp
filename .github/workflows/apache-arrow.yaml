@@ -1,0 +1,35 @@
+name: Apache Arrow
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    name: ${{ matrix.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@1
+        with:
+          ruby-version: "3.0"
+      - name: Enable Apache Arrow repository
+        if: |
+          matrix.runs-on == 'ubuntu-latest'
+        run: |
+          sudo apt update
+          sudo apt install -y -V \
+            lsb-release \
+            wget
+          wget https://apache.jfrog.io/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+          sudo apt install -y -V ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+      - name: Install Ext++
+        run: rake install
+      - name: Install Red Arrow
+        run: gem install red-arrow
+      - name: Load Red Arrow
+        run: ruby -e "require 'arrow'"
