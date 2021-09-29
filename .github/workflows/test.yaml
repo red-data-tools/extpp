@@ -1,0 +1,56 @@
+name: Test
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    name: ${{ matrix.ruby-version }} on ${{ matrix.runs-on }}
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - "2.6"
+          - "2.7"
+          - "3.0"
+        runs-on:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+      - run: bundle exec rake
+
+  xcode:
+    name: Xcode ${{ matrix.xcode-version }} on macOS
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        xcode-version:
+          - "10.3"
+          - "11.2"
+          - "11.3"
+          - "11.4"
+          - "11.5"
+          - "11.6"
+          - "11.7"
+          - "12.0"
+          - "12.1"
+          - "12.2"
+          - "12.3"
+          - "12.4"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ matrix.xcode-version }}
+      - uses: ruby/setup-ruby@1
+        with:
+          ruby-version: "3.0"
+          bundler-cache: true
+      - run: bundle exec rake
