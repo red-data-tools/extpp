@@ -90,7 +90,7 @@ Build this extension:
 Now, you can use this extension:
 
 ```console
-% ruby -r extpp/setup -r ./hello -e 'p Hello.new("me").greet'
+% ruby -r ./hello -e 'p Hello.new("me").greet'
 "Hello me"
 ```
 
