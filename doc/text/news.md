@@ -1,5 +1,11 @@
 # News
 
+## 0.1.0 - 2021-10-03
+
+### Improvements
+
+  * Implemented as header only library.
+
 ## 0.0.9 - 2020-11-03
 
 ### Improvements
