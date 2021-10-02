@@ -96,6 +96,6 @@ Now, you can use this extension:
 
 ## License
 
-Copyright (C) 2017-2019 Kouhei Sutou
+Copyright (C) 2017-2021 Sutou Kouhei
 
 The 2-Clause BSD License. See [LICENSE.txt](LICENSE.txt) for details.
