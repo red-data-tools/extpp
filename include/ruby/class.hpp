@@ -21,72 +21,25 @@ namespace rb {
   };
   using MethodDefinitions = std::vector<MethodDefinition>;
 
-  namespace internal {
-    VALUE MethodTable = Qnil;
-
-    void free_method_table(void *data) {
-      auto method_table = static_cast<rb::MethodTable *>(data);
-      delete method_table;
+  namespace {
+    inline MethodTable *method_table_from_ruby(VALUE rb_method_table) {
+      return reinterpret_cast<MethodTable *>(NUM2ULL(rb_method_table));
     }
 
-    const rb_data_type_t MethodTableType = {
-      "MethodTable",
-      {nullptr, free_method_table, nullptr,},
-        nullptr,
-        nullptr,
-        RUBY_TYPED_FREE_IMMEDIATELY,
-        };
-
-    rb::MethodTable *method_table_from_ruby(VALUE rb_method_table) {
-      rb::MethodTable *method_table;
-      TypedData_Get_Struct(rb_method_table,
-                           rb::MethodTable,
-                           &MethodTableType,
-                           method_table);
-      return method_table;
+    inline VALUE method_table_to_ruby(MethodTable *method_table) {
+      return ULL2NUM(reinterpret_cast<uintptr_t>(method_table));
     }
 
-    VALUE method_table_to_ruby(rb::MethodTable *method_table) {
-      if (NIL_P(MethodTable)) {
-        MethodTable = rb_define_class("MethodTable", rb_cObject);
-      }
-      return TypedData_Wrap_Struct(MethodTable, &MethodTableType, method_table);
+    inline MethodDefinitions *
+    method_definitions_from_ruby(VALUE rb_definitions) {
+      return reinterpret_cast<MethodDefinitions *>(NUM2ULL(rb_definitions));
     }
 
-    VALUE MethodDefinitions = Qnil;
-
-    void free_method_definitions(void *data) {
-      auto method_definitions = static_cast<rb::MethodDefinitions *>(data);
-      delete method_definitions;
+    inline VALUE method_definitions_to_ruby(MethodDefinitions *definitions) {
+      return ULL2NUM(reinterpret_cast<uintptr_t>(definitions));
     }
 
-    const rb_data_type_t MethodDefinitionsType = {
-      "MethodDefinitions",
-      {nullptr, free_method_definitions, nullptr,},
-        nullptr,
-        nullptr,
-        RUBY_TYPED_FREE_IMMEDIATELY,
-        };
-
-    rb::MethodDefinitions *method_definitions_from_ruby(VALUE rb_definitions) {
-      rb::MethodDefinitions *definitions;
-      TypedData_Get_Struct(rb_definitions,
-                           rb::MethodDefinitions,
-                           &MethodDefinitionsType,
-                           definitions);
-      return definitions;
-    }
-
-    VALUE method_definitions_to_ruby(rb::MethodDefinitions *definitions) {
-      if (NIL_P(MethodDefinitions)) {
-        MethodDefinitions = rb_define_class("MethodDefinitions", rb_cObject);
-      }
-      return TypedData_Wrap_Struct(MethodDefinitions,
-                                   &MethodDefinitionsType,
-                                   definitions);
-    }
-
-    VALUE call_func(int argc, VALUE *argv, VALUE self) {
+    inline VALUE call_func(int argc, VALUE *argv, VALUE self) {
       auto rb_method_table =
         rb_ivar_get(rb_obj_class(self), rb_intern("__method_table__"));
       auto method_table = method_table_from_ruby(rb_method_table);
@@ -95,7 +48,7 @@ namespace rb {
       return function->call(self, argc, argv);
     }
 
-    bool flush_method_definitions(VALUE klass) {
+    inline bool flush_method_definitions(VALUE klass) {
       ID id_method_definitions = rb_intern("__method_definitions__");
       auto rb_definitions = rb_ivar_get(klass, id_method_definitions);
       if (NIL_P(rb_definitions)) {
@@ -117,7 +70,7 @@ namespace rb {
       return true;
     }
 
-    VALUE method_missing(int argc, VALUE *argv, VALUE self) {
+    inline VALUE method_missing(int argc, VALUE *argv, VALUE self) {
       auto klass = rb_obj_class(self);
 
       if (flush_method_definitions(klass)) {
@@ -138,9 +91,9 @@ namespace rb {
       return rb_call_super(argc, argv);
     }
 
-    VALUE respond_to_missing_p(VALUE self,
-                               VALUE rb_name_symbol,
-                               VALUE rb_include_private) {
+    inline VALUE respond_to_missing_p(VALUE self,
+                                      VALUE rb_name_symbol,
+                                      VALUE rb_include_private) {
       auto klass = rb_obj_class(self);
 
       if (flush_method_definitions(klass)) {
@@ -184,7 +137,7 @@ namespace rb {
       method_definitions_(nullptr) {
       rb_iv_set(class_,
                 "__method_table__",
-                internal::method_table_to_ruby(method_table_));
+                method_table_to_ruby(method_table_));
       rb_iv_set(class_, "__method_definitions__", Qnil);
     }
 
@@ -214,7 +167,7 @@ namespace rb {
         (*method_table_)[name_id] = function;
         rb_define_method(class_,
                          name,
-                         reinterpret_cast<RawMethod>(internal::call_func),
+                         reinterpret_cast<RawMethod>(call_func),
                          -1);
       }
       return (Class &)*this;
@@ -229,14 +182,14 @@ namespace rb {
       method_definitions_ = new MethodDefinitions();
       rb_iv_set(class_,
                 "__method_definitions__",
-                internal::method_definitions_to_ruby(method_definitions_));
+                method_definitions_to_ruby(method_definitions_));
       rb_define_method(class_,
                        "method_missing",
-                       reinterpret_cast<RawMethod>(internal::method_missing),
+                       reinterpret_cast<RawMethod>(method_missing),
                        -1);
       rb_define_method(class_,
                        "respond_to_missing?",
-                       reinterpret_cast<RawMethod>(internal::respond_to_missing_p),
+                       reinterpret_cast<RawMethod>(respond_to_missing_p),
                        -1);
       return (Class &)*this;
     }
