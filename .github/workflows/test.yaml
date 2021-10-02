@@ -43,6 +43,8 @@ jobs:
           - "12.2"
           - "12.3"
           - "12.4"
+          - "12.5"
+          - "13.0"
     steps:
       - uses: actions/checkout@v2
       - uses: maxim-lobanov/setup-xcode@v1
