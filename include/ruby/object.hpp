@@ -105,9 +105,9 @@ namespace rb {
         return block(rb_data);
       };
 #ifdef RUBY_BACKWARD_CXXANYARGS_HPP
-#  define CAST_CALLER(caller) (caller)
+#  define CAST_CALLER(caller) caller
 #else
-#  define CAST_CALLER(caller) reinterpret_cast<RawMethod>((caller))
+#  define CAST_CALLER(caller) reinterpret_cast<RawMethod>(+caller)
 #endif
       auto rb_result = rb_block_call(rb_object_,
                                      name_id,
