@@ -1,5 +1,11 @@
 # News
 
+## 0.1.1 - 2022-11-02
+
+### Improvements
+
+  * Removed needless a workaround for old Ruby with C++17.
+
 ## 0.1.0 - 2021-10-03
 
 ### Improvements
