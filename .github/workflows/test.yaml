@@ -26,25 +26,36 @@ jobs:
       - run: bundle exec rake
 
   xcode:
-    name: Xcode ${{ matrix.xcode-version }} on macOS
-    runs-on: macos-11
+    name: Xcode ${{ matrix.xcode-version }} on macOS ${{ matrix.macos-version }}
+    runs-on: macos-${{ matrix.macos-version }}
     strategy:
       fail-fast: false
       matrix:
-        xcode-version:
-          - "11.2"
-          - "11.3"
-          - "11.4"
-          - "11.5"
-          - "11.6"
-          - "11.7"
-          - "12.0"
-          - "12.1"
-          - "12.2"
-          - "12.3"
-          - "12.4"
-          - "12.5"
-          - "13.0"
+        include:
+          - xcode-version: "11.7"
+            macos-version: "11"
+          - xcode-version: "12.4"
+            macos-version: "11"
+          - xcode-version: "12.5"
+            macos-version: "11"
+          - xcode-version: "13.0"
+            macos-version: "11"
+          - xcode-version: "13.1"
+            macos-version: "11"
+          - xcode-version: "13.2"
+            macos-version: "11"
+          - xcode-version: "13.1"
+            macos-version: "12"
+          - xcode-version: "13.2"
+            macos-version: "12"
+          - xcode-version: "13.3"
+            macos-version: "12"
+          - xcode-version: "13.4"
+            macos-version: "12"
+          - xcode-version: "14.0"
+            macos-version: "12"
+          - xcode-version: "14.1"
+            macos-version: "12"
     steps:
       - uses: actions/checkout@v2
       - uses: maxim-lobanov/setup-xcode@v1
