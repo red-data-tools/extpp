@@ -92,12 +92,6 @@ module ExtPP
         end
 
         if std
-          if std == "gnu++17"
-            # ruby/intern.h doesn't adapt to C++17. Because it uses
-            # "register" for "rb_mem_clear(register VALUE *mem,
-            # register long size)".  C++17 removes "register" keyword.
-            std = "gnu++14"
-          end
           @cxx_flags += " -std=#{std}"
           @cxx_flags += " #{cxx_flags}" if cxx_flags
           [version, " (#{std})"]
