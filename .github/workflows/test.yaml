@@ -10,9 +10,12 @@ jobs:
       fail-fast: false
       matrix:
         ruby-version:
-          - "2.7"
           - "3.0"
           - "3.1"
+          - "3.2"
+          - "3.3"
+          - "3.4"
+          - "4.0"
         runs-on:
           - macos-latest
           - ubuntu-latest
@@ -32,30 +35,32 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - xcode-version: "11.7"
-            macos-version: "11"
-          - xcode-version: "12.4"
-            macos-version: "11"
-          - xcode-version: "12.5"
-            macos-version: "11"
-          - xcode-version: "13.0"
-            macos-version: "11"
-          - xcode-version: "13.1"
-            macos-version: "11"
-          - xcode-version: "13.2"
-            macos-version: "11"
-          - xcode-version: "13.1"
-            macos-version: "12"
-          - xcode-version: "13.2"
-            macos-version: "12"
-          - xcode-version: "13.3"
-            macos-version: "12"
-          - xcode-version: "13.4"
-            macos-version: "12"
-          - xcode-version: "14.0"
-            macos-version: "12"
-          - xcode-version: "14.1"
-            macos-version: "12"
+          - xcode-version: "15.0.1"
+            macos-version: "14"
+          - xcode-version: "15.1"
+            macos-version: "14"
+          - xcode-version: "15.2"
+            macos-version: "14"
+          - xcode-version: "15.3"
+            macos-version: "14"
+          - xcode-version: "15.4"
+            macos-version: "14"
+          - xcode-version: "16.1"
+            macos-version: "14"
+          - xcode-version: "16.2"
+            macos-version: "14"
+          - xcode-version: "16.3"
+            macos-version: "15"
+          - xcode-version: "16.4"
+            macos-version: "15"
+          - xcode-version: "26.0.1"
+            macos-version: "15"
+          - xcode-version: "26.1.1"
+            macos-version: "15"
+          - xcode-version: "26.2"
+            macos-version: "15"
+          - xcode-version: "26.3"
+            macos-version: "15"
     steps:
       - uses: actions/checkout@v6
       - uses: maxim-lobanov/setup-xcode@v1
@@ -63,6 +68,6 @@ jobs:
           xcode-version: ${{ matrix.xcode-version }}
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1"
+          ruby-version: ruby
           bundler-cache: true
       - run: bundle exec rake

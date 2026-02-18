@@ -17,18 +17,10 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.1"
-      - name: Enable Apache Arrow repository
-        if: |
-          matrix.runs-on == 'ubuntu-latest'
+          ruby-version: ruby
+      - name: Install rubygems-requirements-system
         run: |
-          sudo apt update
-          sudo apt install -y -V \
-            lsb-release \
-            wget
-          wget https://apache.jfrog.io/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
-          sudo apt install -y -V ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
-          sudo apt update
+          gem install rubygems-requirements-system
       - name: Install Ext++
         run: rake install
       - name: Install Red Arrow
