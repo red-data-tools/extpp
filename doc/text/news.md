@@ -1,5 +1,11 @@
 # News
 
+## 0.1.2 - 2026-02-18
+
+### Improvements
+
+  * Added support for C++20.
+
 ## 0.1.1 - 2022-11-02
 
 ### Improvements
