@@ -21,6 +21,10 @@ jobs:
       - name: Install rubygems-requirements-system
         run: |
           gem install rubygems-requirements-system
+      - name: Update Homebrew
+        if: matrix.runs-on == 'macos-latest'
+        run: |
+          brew update
       - name: Install Ext++
         run: rake install
       - name: Install Red Arrow
