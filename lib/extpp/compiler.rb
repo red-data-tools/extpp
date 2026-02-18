@@ -55,7 +55,7 @@ module ExtPP
     def check_version
       return unless gcc?
 
-      checking_for(checking_message("g++ version"), "%g%s") do
+      checking_for(checking_message("C++ compiler version"), "%g%s") do
         version = 0.0
         std = nil
 
