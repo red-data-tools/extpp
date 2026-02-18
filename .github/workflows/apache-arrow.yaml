@@ -26,7 +26,7 @@ jobs:
         run: |
           brew update
           # We can remove once red-arrow 24.0.0 is released.
-          brew install apache-arrow
+          brew install apache-arrow-glib
       - name: Install Ext++
         run: rake install
       - name: Install Red Arrow
