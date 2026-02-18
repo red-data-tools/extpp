@@ -66,8 +66,10 @@ module ExtPP
             std = "gnu++11"
           elsif version < 6.1
             std = "gnu++14"
-          else
+          elsif version < 10.1
             std = "gnu++17"
+          else
+            std = "gnu++20"
           end
         when /\AApple (?:LLVM|clang) version (\d+\.\d+)\.\d/
           version = Float($1)
@@ -76,8 +78,10 @@ module ExtPP
             std = "gnu++11"
           elsif version < 9.1
             std = "gnu++14"
-          else
+          elsif version < 12.5
             std = "gnu++17"
+          else
+            std = "gnu++20"
           end
           cxx_flags = "-Wno-deprecated-register"
         when /clang version (\d+\.\d+)\.\d/
@@ -86,8 +90,10 @@ module ExtPP
             std = "gnu++11"
           elsif version < 5
             std = "gnu++14"
-          else
+          elsif version < 11
             std = "gnu++17"
+          else
+            std = "gnu++20"
           end
         end
 
