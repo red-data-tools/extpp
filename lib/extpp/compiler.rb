@@ -60,7 +60,27 @@ module ExtPP
         std = nil
 
         case `#{RbConfig.expand("$(CXX) --version")}`
-        when /g\+\+.+ (\d+\.\d+)\.\d/
+        when /[cg]\+\+.+ (\d+\.\d+)\.\d/
+          # Examples:
+          #   "g++ --version" on Debian:
+          #
+          #     g++ (Debian 15.2.0-12) 15.2.0
+          #     ...
+          #
+          #   "c++ --version" on Debian:
+          #
+          #     c++ (Debian 15.2.0-12) 15.2.0
+          #     ...
+          #
+          #   "x86_64-conda-linux-gnu-g++ --version" on conda
+          #
+          #     x86_64-conda-linux-gnu-g++ (conda-forge gcc 14.3.0-18) 14.3.0
+          #     ...
+          #
+          #   "x86_64-conda-linux-gnu-c++ --version" on conda
+          #
+          #     x86_64-conda-linux-gnu-c++ (conda-forge gcc 14.3.0-18) 14.3.0
+          #     ...
           version = Float($1)
           if version < 5.1
             std = "gnu++11"
