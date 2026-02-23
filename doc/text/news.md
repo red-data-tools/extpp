@@ -1,5 +1,11 @@
 # News
 
+## 0.1.3 - 2026-02-23
+
+### Improvements
+
+  * Added support for `c++`.
+
 ## 0.1.2 - 2026-02-18
 
 ### Improvements
